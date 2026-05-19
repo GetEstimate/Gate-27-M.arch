@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GATE 2026 — AR Architecture & Planning | Complete Study Guide</title>
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --card: #ffffff;
+    --border: #e2dfd8;
+    --text: #1a1a18;
+    --muted: #6b6860;
+    --accent-a: #4a3f8f;
+    --accent-b1: #0d6e52;
+    --accent-b2: #7a4a0a;
+    --formula-bg: #f0f4ff;
+    --formula-border: #8fa8e8;
+    --example-bg: #f0fbf4;
+    --example-border: #5bb880;
+    --num-bg: #fff8ec;
+    --num-border: #f0a830;
+    --warn-bg: #fef2f2;
+    --warn-border: #e57373;
+    --tag-a: #4a3f8f;
+    --tag-b1: #0d6e52;
+    --tag-b2: #7a4a0a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.75; }
+  /* Layout */
+  .wrapper { max-width: 980px; margin: 0 auto; padding: 24px 20px 60px; }
+  /* Header */
+  .main-header { text-align: center; padding: 40px 20px 32px; border-bottom: 2px solid var(--border); margin-bottom: 28px; }
+  .main-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
+  .main-header p { color: var(--muted); font-size: 14px; margin-top: 6px; font-style: italic; }
+  .badge-row { display: flex; gap: 10px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+  .badge { font-family: Arial, sans-serif; font-size: 12px; font-weight: 600; padding: 4px 14px; border-radius: 20px; letter-spacing: 0.3px; }
+  .badge-a { background: #eeedfe; color: var(--accent-a); border: 1px solid #afa9ec; }
+  .badge-b1 { background: #e1f5ee; color: var(--accent-b1); border: 1px solid #5dcaa5; }
+  .badge-b2 { background: #faeeda; color: var(--accent-b2); border: 1px solid #ef9f27; }
+  /* Search */
+  .search-wrap { position: sticky; top: 0; z-index: 100; background: var(--bg); padding: 12px 0; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+  #searchInput { width: 100%; padding: 10px 16px; font-family: Arial, sans-serif; font-size: 14px; border: 1.5px solid var(--border); border-radius: 8px; background: white; color: var(--text); outline: none; }
+  #searchInput:focus { border-color: var(--accent-a); }
+  #searchCount { font-family: Arial, sans-serif; font-size: 12px; color: var(--muted); margin-top: 6px; }
+  /* TOC */
+  .toc { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; }
+  .toc h3 { font-size: 14px; font-family: Arial, sans-serif; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 6px; }
+  .toc-item { font-family: Arial, sans-serif; font-size: 13px; color: var(--accent-a); text-decoration: none; padding: 5px 8px; border-radius: 5px; display: block; }
+  .toc-item:hover { background: #eeedfe; }
+  .toc-item.b1 { color: var(--accent-b1); } .toc-item.b1:hover { background: #e1f5ee; }
+  .toc-item.b2 { color: var(--accent-b2); } .toc-item.b2:hover { background: #faeeda; }
+  /* Part Headers */
+  .part-header { padding: 16px 22px; border-radius: 10px; margin: 32px 0 16px; font-family: Arial, sans-serif; }
+  .part-a-hdr { background: #4a3f8f; color: white; }
+  .part-b1-hdr { background: #0d6e52; color: white; }
+  .part-b2-hdr { background: #7a4a0a; color: white; }
+  .part-header h2 { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+  .part-header p { font-size: 13px; opacity: 0.85; }
+  /* Section */
+  .section { background: white; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 20px; overflow: hidden; }
+  .section-header { padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 10px; user-select: none; }
+  .section-header:hover { background: #faf9f7; }
+  .sec-num { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px; letter-spacing: 0.5px; white-space: nowrap; }
+  .sec-num-a { background: #eeedfe; color: var(--accent-a); }
+  .sec-num-b1 { background: #e1f5ee; color: var(--accent-b1); }
+  .sec-num-b2 { background: #faeeda; color: var(--accent-b2); }
+  .section-header h3 { font-size: 16px; font-family: Arial, sans-serif; font-weight: 700; flex: 1; }
+  .toggle-icon { font-size: 20px; color: var(--muted); transition: transform 0.2s; }
+  .section.open .toggle-icon { transform: rotate(90deg); }
+  .section-body { display: none; padding: 0 20px 24px; border-top: 1px solid var(--border); }
+  .section.open .section-body { display: block; }
+  /* Topic */
+  .topic { margin-top: 24px; padding-top: 20px; border-top: 1px dashed #e5e2dc; }
+  .topic:first-child { border-top: none; padding-top: 12px; }
+  .topic-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 8px; font-family: Arial, sans-serif; }
+  .topic-title span { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+  .dot-a { background: var(--accent-a); }
+  .dot-b1 { background: var(--accent-b1); }
+  .dot-b2 { background: var(--accent-b2); }
+  .topic p { margin-bottom: 10px; color: var(--text); }
+  .topic ul, .topic ol { padding-left: 22px; margin-bottom: 10px; }
+  .topic li { margin-bottom: 5px; color: var(--text); }
+  /* Special boxes */
+  .formula-box { background: var(--formula-bg); border-left: 4px solid var(--formula-border); border-radius: 6px; padding: 14px 16px; margin: 12px 0; font-family: 'Courier New', monospace; font-size: 13.5px; }
+  .formula-box .box-title { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #3a5ab8; margin-bottom: 8px; }
+  .formula-box .fml { margin: 4px 0; font-size: 14px; color: #1a2d6e; }
+  .example-box { background: var(--example-bg); border-left: 4px solid var(--example-border); border-radius: 6px; padding: 14px 16px; margin: 12px 0; }
+  .example-box .box-title { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #2a7a45; margin-bottom: 8px; }
+  .numerical-box { background: var(--num-bg); border-left: 4px solid var(--num-border); border-radius: 6px; padding: 14px 16px; margin: 12px 0; }
+  .numerical-box .box-title { font-family: Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #9a5a00; margin-bottom: 8px; }
+  .remember-box { background: var(--warn-bg); border-left: 4px solid var(--warn-border); border-radius: 6px; padding: 12px 16px; margin: 12px 0; font-family: Arial, sans-serif; font-size: 13px; }
+  .remember-box strong { color: #b91c1c; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-family: Arial, sans-serif; font-size: 13px; }
+  th { background: #f0eef9; color: var(--accent-a); font-weight: 700; padding: 8px 12px; text-align: left; border: 1px solid #ddd; }
+  td { padding: 7px 12px; border: 1px solid #e5e2dc; vertical-align: top; }
+  tr:nth-child(even) td { background: #faf9f7; }
+  /* Tags */
+  .tag { display: inline-block; font-family: Arial, sans-serif; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin: 2px; }
+  .tag-formula { background: #dbeafe; color: #1e40af; }
+  .tag-numerical { background: #fef3c7; color: #92400e; }
+  .tag-example { background: #d1fae5; color: #065f46; }
+  .tag-gate { background: #fee2e2; color: #991b1b; }
+  /* Hidden for search */
+  .hidden { display: none !important; }
+  @media print { .search-wrap { position: static; } }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<div class="main-header">
+  <h1>GATE 2026 — AR Architecture & Planning</h1>
+  <p>IIT Guwahati | Organizing Institute &nbsp;·&nbsp; Complete Study Guide with Formulas, Numericals & Examples</p>
+  <div class="badge-row">
+    <span class="badge badge-a">Part A — Common (7 Sections)</span>
+    <span class="badge badge-b1">Part B1 — Architecture (3 Sections)</span>
+    <span class="badge badge-b2">Part B2 — Planning (3 Sections)</span>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="🔍  Search any topic, formula, or concept across all sections..." oninput="doSearch(this.value)">
+  <div id="searchCount"></div>
+</div>
+
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <div class="toc-grid">
+    <a class="toc-item" href="#s1">S1 · Architecture, Planning & Design</a>
+    <a class="toc-item" href="#s2">S2 · Construction and Management</a>
+    <a class="toc-item" href="#s3">S3 · Environmental Planning & Design</a>
+    <a class="toc-item" href="#s4">S4 · Urban Design, Landscape & Conservation</a>
+    <a class="toc-item" href="#s5">S5 · Planning Process</a>
+    <a class="toc-item" href="#s6">S6 · Housing</a>
+    <a class="toc-item" href="#s7">S7 · Services and Infrastructure</a>
+    <a class="toc-item b1" href="#sb11">B1.1 · History & Contemporary Architecture</a>
+    <a class="toc-item b1" href="#sb12">B1.2 · Building Construction & Structural Systems</a>
+    <a class="toc-item b1" href="#sb13">B1.3 · Building Services & Sustainability</a>
+    <a class="toc-item b2" href="#sb21">B2.1 · Regional & Settlement Planning</a>
+    <a class="toc-item b2" href="#sb22">B2.2 · Planning Techniques & Management</a>
+    <a class="toc-item b2" href="#sb23">B2.3 · Infrastructure Planning</a>
+  </div>
+</div>
+
+<!-- ===== PART A ===== -->
+<div class="part-header part-a-hdr">
+  <h2>PART A — Common (All Candidates)</h2>
+  <p>Sections 1–7 are mandatory for all AR candidates regardless of specialization</p>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section open" id="s1">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-a">SECTION 1</span>
+    <h3>Architecture, Planning and Design</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Architectural Graphics</div>
+      <p>Architectural graphics is the language through which architects communicate design intent. It includes a comprehensive set of drawing types — each serving a specific purpose in conveying spatial information at different scales and levels of abstraction.</p>
+      <p><strong>Orthographic Projections</strong> are the primary documentation drawings. A <em>plan</em> is a horizontal section typically cut at 900–1000mm above the finished floor level, showing the arrangement of walls, openings, stairs, and furniture. An <em>elevation</em> is a vertical orthographic projection showing the external face of a building without foreshortening. A <em>section</em> is a vertical cut through the building revealing internal heights, floor-to-floor dimensions, ceiling types, foundations, and structural elements.</p>
+      <p><strong>Axonometric and Isometric drawings</strong> show three faces of an object simultaneously without perspective distortion. In isometric, all three axes are at 120° to each other and drawn to true scale. In axonometric (plan oblique), the plan is drawn true-shape and extruded vertically.</p>
+      <p><strong>Perspective drawings</strong> simulate the human eye view. In one-point perspective, one vanishing point on the horizon represents depth — ideal for interior corridors and streets. Two-point perspective has two vanishing points, ideal for building exteriors at corners. Three-point perspective adds a vertical vanishing point — used for dramatic aerial or worm's-eye views of tall buildings.</p>
+      <div class="formula-box">
+        <div class="box-title">📐 Scale Formulas</div>
+        <div class="fml">Drawing Size = Actual Size ÷ Scale Denominator</div>
+        <div class="fml">Actual Size = Drawing Size × Scale Denominator</div>
+        <div class="fml">Representative Fraction (RF) = 1 : N (e.g. 1:100 means 1 unit = 100 units real)</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Worked Examples</div>
+        <p><strong>Q:</strong> A room is 7.5m × 5.0m. At scale 1:50, what are the drawing dimensions?<br><strong>A:</strong> 7.5m = 750cm → 750÷50 = 15cm. 5.0m = 500cm → 500÷50 = 10cm. Drawing = 15cm × 10cm.</p>
+        <p><strong>Q:</strong> A site plan is drawn at 1:500. A road drawn 4.5cm long is actually how long?<br><strong>A:</strong> 4.5cm × 500 = 2250cm = 22.5m.</p>
+      </div>
+      <table>
+        <tr><th>Drawing Type</th><th>Typical Scale</th><th>Use</th></tr>
+        <tr><td>Site Plan</td><td>1:500, 1:1000</td><td>Plot, roads, context</td></tr>
+        <tr><td>Floor Plan</td><td>1:50, 1:100</td><td>Room layout, walls</td></tr>
+        <tr><td>Section/Elevation</td><td>1:50, 1:100</td><td>Heights, façade</td></tr>
+        <tr><td>Detail Drawing</td><td>1:5, 1:10, 1:20</td><td>Junctions, joints</td></tr>
+        <tr><td>Key Plan</td><td>1:2000+</td><td>Location map</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Visual Composition in 2D and 3D</div>
+      <p>Visual composition governs how elements are organized to produce aesthetic order, meaning, and spatial quality. These principles apply equally to two-dimensional graphic design and three-dimensional architectural form.</p>
+      <ul>
+        <li><strong>Balance:</strong> Symmetrical balance (mirror image about an axis — e.g. Taj Mahal) vs Asymmetrical balance (different elements achieving equilibrium through placement — e.g. Fallingwater by Frank Lloyd Wright).</li>
+        <li><strong>Rhythm:</strong> Repetition of similar elements at regular intervals (columnar rhythm of Greek temples), alternating rhythm (ABAB), progressive rhythm (escalating scale), and flowing rhythm (organic curves).</li>
+        <li><strong>Proportion:</strong> The mathematical relationship between parts. The Golden Ratio (φ = 1.618) has been used since ancient Greece. The Modulor by Le Corbusier applied the Golden Section to human body measurements for architectural proportion.</li>
+        <li><strong>Scale:</strong> Human scale (elements relate to human body size), monumental scale (deliberately oversized for grandeur — government buildings, religious structures), intimate scale (smaller than expected — creates coziness).</li>
+        <li><strong>Hierarchy:</strong> Visual dominance achieved through size, color, position, or contrast — signals importance and organizes a composition.</li>
+        <li><strong>Unity and Variety:</strong> Unity brings coherence; variety prevents monotony. The tension between these is the essence of good design.</li>
+        <li><strong>Contrast:</strong> Juxtaposition of unlike elements — light vs dark, smooth vs rough, tall vs low — to create visual interest and emphasis.</li>
+      </ul>
+      <div class="formula-box">
+        <div class="box-title">📐 Golden Ratio</div>
+        <div class="fml">φ = (1 + √5) / 2 ≈ 1.618</div>
+        <div class="fml">Golden Rectangle: Width/Height = 1.618 (or Height/Width = 0.618)</div>
+        <div class="fml">Fibonacci Series: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55 ... (each ≈ φ × previous)</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Anthropometrics</div>
+      <p>Anthropometrics is the science of measuring the human body to inform design decisions. It ensures that spaces, furniture, and equipment are ergonomically suited to their users. Data is typically presented as percentile values — 5th percentile (small person), 50th (average), and 95th (large person). Design usually accommodates 5th–95th percentile range.</p>
+      <table>
+        <tr><th>Measurement</th><th>Male (mm)</th><th>Female (mm)</th><th>Design Application</th></tr>
+        <tr><td>Standing height</td><td>1750</td><td>1625</td><td>Door height minimum 2000mm</td></tr>
+        <tr><td>Eye level (standing)</td><td>1635</td><td>1515</td><td>Window sill heights, display boards</td></tr>
+        <tr><td>Shoulder width</td><td>465</td><td>418</td><td>Seat spacing, corridor width</td></tr>
+        <tr><td>Seated height</td><td>910</td><td>850</td><td>Counter heights, overhead clearance</td></tr>
+        <tr><td>Seated eye level</td><td>790</td><td>740</td><td>Screen placement</td></tr>
+        <tr><td>Forward reach</td><td>760</td><td>700</td><td>Shelf depth, counter depth</td></tr>
+        <tr><td>Wheelchair user height</td><td>1200</td><td>1150</td><td>Counter max: 850mm</td></tr>
+        <tr><td>Wheelchair footprint</td><td colspan="2">750W × 1200L</td><td>Corridor min 900mm, turn 1500mm</td></tr>
+      </table>
+      <div class="example-box">
+        <div class="box-title">✅ Application Examples</div>
+        <p><strong>Kitchen design:</strong> Base counter height = 850–900mm (based on elbow height minus 150mm for comfortable working). Upper cabinet bottom = 1400–1450mm (within forward reach of 95th percentile female). Knee clearance under counter: min 680mm.</p>
+        <p><strong>Stair design:</strong> Riser height based on leg raise comfort — max 175mm (NBC residential), 150mm (public buildings). Tread based on foot length + comfortable overhang.</p>
+        <p><strong>Classroom:</strong> Blackboard bottom at 900mm from floor (visible to seated students). Board top at 2100mm. Row spacing: min 850mm per student row.</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Organization of Space</div>
+      <p>Spatial organization defines the structural logic of a building's plan. Francis Ching (Architecture: Form, Space & Order) identifies five fundamental spatial relationships and several organizational types:</p>
+      <p><strong>Space within a space:</strong> A smaller space enclosed within a larger one. The inner space is the focus (e.g., altar within a cathedral nave).</p>
+      <p><strong>Interlocking spaces:</strong> Two spaces overlap and share a common zone — the overlapping area belongs to both (e.g., living room and dining room sharing a central space).</p>
+      <p><strong>Adjacent spaces:</strong> Two spaces share a common border. Relationship defined by the character of the shared boundary (wall, colonnade, change in level).</p>
+      <p><strong>Spaces linked by a common space:</strong> Two spaces related by a third intermediary space — an entrance hall linking reception and office.</p>
+      <ul>
+        <li><strong>Linear organization:</strong> Sequence of spaces along a path (hospital corridor, railway carriage). Directional and hierarchical. Examples: Hypostyle hall at Karnak.</li>
+        <li><strong>Radial organization:</strong> Spaces radiate from a dominant central space. Central point has visual and physical control (e.g., Pantheon, Bramante's Tempietto).</li>
+        <li><strong>Clustered organization:</strong> Spaces grouped by proximity, shared form, or visual relationship without strong axis. Flexible, organic (village settlements, informal campus layouts).</li>
+        <li><strong>Grid organization:</strong> Spaces organized on a regular 2D or 3D framework. Consistent, repetitive, easily expandable. Examples: Roman city grid (Timgad), Chandigarh sectors.</li>
+        <li><strong>Axial organization:</strong> Spaces arranged along one or more dominant axes. Strong directionality and formality. Examples: Versailles gardens, Lutyens' New Delhi.</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Circulation — Horizontal and Vertical</div>
+      <p><strong>Horizontal Circulation:</strong> Movement along the same floor level — corridors, galleries, arcades, ramps, and passages. The configuration of horizontal circulation determines how spaces relate to each other and how efficiently people move through a building.</p>
+      <ul>
+        <li>Single-loaded corridor: rooms on one side only — good daylighting to rooms, inefficient use of corridor area.</li>
+        <li>Double-loaded corridor: rooms on both sides — more efficient but interior-facing rooms get no direct light (used in hospitals, hotels, offices).</li>
+        <li>Gallery: wide corridor that is itself a usable space (art galleries, shopping arcades).</li>
+        <li>Enfilade: sequence of rooms opening directly onto each other — used in formal palaces (Versailles).</li>
+      </ul>
+      <p><strong>Vertical Circulation:</strong> Movement between floors — stairs, ramps, escalators, lifts, and fire escapes.</p>
+      <div class="formula-box">
+        <div class="box-title">📐 Stair Design Formula (NBC 2016)</div>
+        <div class="fml">2R + T = 600 to 640 mm  (Blondel's Formula)</div>
+        <div class="fml">where R = Riser height, T = Tread depth (going)</div>
+        <div class="fml">Also: R × T = 400–450 mm² (product formula)</div>
+        <div class="fml">Slope of stair = R/T (angle typically 25°–40°)</div>
+        <div class="fml">Ramp slope: max 1:12 (8.3%) for wheelchair accessibility</div>
+        <div class="fml">Ramp: max 1:8 (12.5%) for general use without wheelchair</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Stair Calculations</div>
+        <p><strong>Q:</strong> Floor-to-floor height = 3.3m. Design a stair with R = 150mm. Find: number of risers, tread, and stair length.</p>
+        <p><strong>Solution:</strong><br>
+        Number of risers = 3300 ÷ 150 = 22 risers<br>
+        Using 2R + T = 620: T = 620 – 300 = 320mm<br>
+        Number of treads = 22 – 1 = 21 treads (last riser lands on floor)<br>
+        Total going = 21 × 320 = 6720mm = 6.72m</p>
+        <p><strong>Q:</strong> An entrance ramp rises 450mm. At 1:12 slope, what is the ramp length?<br>
+        <strong>A:</strong> Length = 450 × 12 = 5400mm = 5.4m. Add 1.5m level landing at top and bottom → Total = 5.4 + 1.5 + 1.5 = 8.4m</p>
+      </div>
+      <table>
+        <tr><th>Element</th><th>Residential (NBC)</th><th>Public Buildings (NBC)</th><th>Accessibility (CPWD)</th></tr>
+        <tr><td>Stair width</td><td>min 900mm</td><td>min 1500mm</td><td>min 1500mm (2-way)</td></tr>
+        <tr><td>Riser height</td><td>max 200mm</td><td>max 175mm</td><td>max 150mm</td></tr>
+        <tr><td>Tread depth</td><td>min 250mm</td><td>min 250mm</td><td>min 300mm</td></tr>
+        <tr><td>Handrail height</td><td>900mm</td><td>900–1000mm</td><td>760–900mm (dual)</td></tr>
+        <tr><td>Head clearance</td><td>2100mm</td><td>2200mm</td><td>2200mm</td></tr>
+        <tr><td>Dead-end corridor</td><td>—</td><td>max 15m (NBC)</td><td>—</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Space Standards</div>
+      <p>Space standards define the minimum areas required for various building types to ensure comfort, functionality, and compliance with regulations. India's National Building Code (NBC) 2016 Part 3 provides comprehensive space standards.</p>
+      <table>
+        <tr><th>Room/Space</th><th>Minimum Area</th><th>Minimum Dimension</th><th>Remarks</th></tr>
+        <tr><td>Habitable room (general)</td><td>9.5 m²</td><td>2.4m any side</td><td>NBC residential</td></tr>
+        <tr><td>Living room</td><td>9.5 m²</td><td>—</td><td>Additional to bedroom</td></tr>
+        <tr><td>Bedroom (EWS)</td><td>7.5 m²</td><td>—</td><td>Low-income housing</td></tr>
+        <tr><td>Kitchen</td><td>4.5 m²</td><td>1.8m width</td><td>NBC</td></tr>
+        <tr><td>WC + Bath (combined)</td><td>2.75 m²</td><td>1.2m width</td><td>NBC</td></tr>
+        <tr><td>Separate WC</td><td>1.1m × 1.5m</td><td>—</td><td>Minimum</td></tr>
+        <tr><td>Classroom (primary)</td><td>0.9–1.2 m² per student</td><td>—</td><td>CPWD norms</td></tr>
+        <tr><td>Office (per person)</td><td>4.5–7.5 m²</td><td>—</td><td>Varies with type</td></tr>
+        <tr><td>Hospital bed space</td><td>9.3 m² per bed</td><td>—</td><td>Ward with amenities</td></tr>
+        <tr><td>Car parking (single)</td><td>2.5m × 5.0m</td><td>—</td><td>+ drive aisle 6m</td></tr>
+        <tr><td>Hotel room (standard)</td><td>min 12–14 m²</td><td>—</td><td>Guest room only</td></tr>
+        <tr><td>Floor height (habitable)</td><td>min 2.75m</td><td>—</td><td>NBC residential</td></tr>
+        <tr><td>Floor height (air-conditioned)</td><td>min 2.4m</td><td>—</td><td>NBC commercial</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Universal Design</div>
+      <p>Universal Design, developed by Ron Mace at NC State University (1997), is the design of products and environments usable by all people, to the greatest extent possible, without adaptation or specialized design. It differs from "accessible design" (which only addresses disability) by aiming for inclusivity for all — children, elderly, pregnant women, people with temporary injuries, and people with disabilities.</p>
+      <p><strong>The 7 Principles of Universal Design:</strong></p>
+      <ol>
+        <li><strong>Equitable Use:</strong> Useful to people with diverse abilities. The same entrance serves everyone — no separate "accessible" door. Example: automatic sliding doors at airports.</li>
+        <li><strong>Flexibility in Use:</strong> Accommodates a wide range of preferences and abilities. Example: scissors usable by left or right-handed people; adjustable-height desks.</li>
+        <li><strong>Simple and Intuitive Use:</strong> Easy to understand regardless of experience, language, or cognitive ability. Example: clear pictograms, progressive color coding in wayfinding.</li>
+        <li><strong>Perceptible Information:</strong> Communicates necessary information effectively using different modes — tactile paving (visual + tactile), audio signals at crossings, Braille signage.</li>
+        <li><strong>Tolerance for Error:</strong> Minimizes hazards and adverse consequences of accidental or unintended actions. Example: rounded furniture corners, guarded stovetop controls.</li>
+        <li><strong>Low Physical Effort:</strong> Efficient and comfortable with minimum fatigue. Example: lever door handles instead of round knobs; touch-sensitive faucets.</li>
+        <li><strong>Size and Space for Approach and Use:</strong> Appropriate size and space provided regardless of user's body size, posture, or mobility. Example: knee clearance at counters, 1500mm turning radius for wheelchairs.</li>
+      </ol>
+      <div class="remember-box">
+        <strong>GATE Key Points:</strong> Tactile paving (yellow, 300mm wide) must be provided along accessible routes. The international symbol of accessibility (wheelchair pictogram) was designed by Susanne Koefoed in 1968, revised 2012. Accessibility standards in India: CPWD Handbook on Barrier Free and Accessible Environment (2014).
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Building Byelaws, Codes and Standards</div>
+      <p>Building byelaws are legally enforceable regulations issued by local planning authorities. They control land use, building mass, coverage, heights, setbacks, and occupancy. The National Building Code (NBC) of India 2016 (2 volumes, BIS) provides model byelaws that states and ULBs adopt.</p>
+      <div class="formula-box">
+        <div class="box-title">📐 Key Regulatory Formulae</div>
+        <div class="fml">FAR (Floor Area Ratio) = Total Covered Area on All Floors ÷ Plot Area</div>
+        <div class="fml">FSI (Floor Space Index) = same as FAR (term used in Maharashtra)</div>
+        <div class="fml">Ground Coverage = Footprint of Building ÷ Plot Area × 100 (%)</div>
+        <div class="fml">Open Space = Plot Area – Ground Coverage Area</div>
+        <div class="fml">Setback: front (street-facing), side (boundary), rear — defined by plot size and zone</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 FAR / Coverage Problems</div>
+        <p><strong>Q:</strong> Plot area = 600 m². FAR = 3.0. Ground coverage = 50%. How many floors possible?<br>
+        Max buildable area = 600 × 3.0 = 1800 m²<br>
+        Max footprint = 600 × 0.50 = 300 m²<br>
+        Number of floors = 1800 ÷ 300 = <strong>6 floors</strong></p>
+        <p><strong>Q:</strong> A 1000 m² plot has a 5-storey building with each floor 400 m². What is the FAR?<br>
+        Total built-up = 5 × 400 = 2000 m²<br>
+        FAR = 2000 ÷ 1000 = <strong>2.0</strong></p>
+        <p><strong>Q:</strong> Building footprint = 350 m², plot = 700 m². What is ground coverage?<br>
+        Coverage = (350 ÷ 700) × 100 = <strong>50%</strong></p>
+      </div>
+      <table>
+        <tr><th>Land Use Zone</th><th>Typical FAR (India)</th><th>Typical Coverage</th></tr>
+        <tr><td>Residential (low density)</td><td>1.0–1.5</td><td>40–50%</td></tr>
+        <tr><td>Residential (high density)</td><td>2.0–3.0</td><td>50–60%</td></tr>
+        <tr><td>Commercial</td><td>3.0–5.0</td><td>60–75%</td></tr>
+        <tr><td>Industrial</td><td>0.5–1.0</td><td>40–50%</td></tr>
+        <tr><td>Mixed use (TOD)</td><td>3.0–4.0</td><td>65–75%</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section" id="s2">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-a">SECTION 2</span>
+    <h3>Construction and Management</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>PERT and CPM — Project Management Techniques</div>
+      <p><strong>CPM (Critical Path Method)</strong> was developed in 1957 by DuPont for industrial projects. It uses deterministic (fixed) time estimates for each activity and identifies the <em>critical path</em> — the longest path through the network, which determines the minimum project duration. Any delay on the critical path delays the entire project.</p>
+      <p><strong>PERT (Program Evaluation and Review Technique)</strong> was developed in 1958 by the US Navy for the Polaris missile project. It uses three probabilistic time estimates per activity and is better for projects with high uncertainty (R&D, new construction types).</p>
+      <div class="formula-box">
+        <div class="box-title">📐 PERT Formulae</div>
+        <div class="fml">Expected time (te) = (to + 4·tm + tp) / 6</div>
+        <div class="fml">Variance (σ²) = [(tp − to) / 6]²</div>
+        <div class="fml">Standard deviation (σ) = (tp − to) / 6</div>
+        <div class="fml">where: to = optimistic time, tm = most likely time, tp = pessimistic time</div>
+        <div class="fml">Total Float (TF) = LS − ES = LF − EF</div>
+        <div class="fml">Free Float (FF) = ES(successor) − EF(activity)</div>
+        <div class="fml">Independent Float (IF) = ES(successor) − LF(predecessor) − Duration</div>
+        <div class="fml">Critical Path: Activities where TF = 0</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 PERT Worked Example</div>
+        <p><strong>Activity A:</strong> to=2, tm=5, tp=14 days</p>
+        <p>te = (2 + 4×5 + 14)/6 = (2 + 20 + 14)/6 = 36/6 = <strong>6 days</strong></p>
+        <p>σ = (14 − 2)/6 = 12/6 = <strong>2 days</strong></p>
+        <p>σ² = 4 days²</p>
+        <p><strong>CPM Float Example:</strong> Activity X has ES=5, EF=9 (duration 4 days). Its successor starts at ES=12 (LS=15).</p>
+        <p>Total Float = 15 − 5 = <strong>10 days</strong> (can delay by 10 days without delaying project)<br>
+        Free Float = 12 − 9 = <strong>3 days</strong> (can delay by 3 days without delaying successor)</p>
+      </div>
+      <table>
+        <tr><th>Feature</th><th>CPM</th><th>PERT</th></tr>
+        <tr><td>Time estimates</td><td>Single (deterministic)</td><td>Three (probabilistic)</td></tr>
+        <tr><td>Best for</td><td>Repetitive construction</td><td>R&D, uncertain projects</td></tr>
+        <tr><td>Focus</td><td>Cost–time trade-off</td><td>Time uncertainty</td></tr>
+        <tr><td>Activity on</td><td>Arrow (AOA) or Node (AON)</td><td>Arrow (AOA)</td></tr>
+        <tr><td>Crashing</td><td>Yes — cost-time optimization</td><td>Not directly</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Estimation and Specification</div>
+      <p>Estimation involves calculating the cost of a construction project. Specifications define the quality standards for materials and workmanship. Together they form the basis of tendering and contract documentation.</p>
+      <p><strong>Types of Estimates:</strong></p>
+      <ul>
+        <li><strong>Preliminary/Approximate Estimate:</strong> Quick cost assessment at concept stage. Methods: plinth area method, cubic content method, bay method. Accuracy ±20–30%.</li>
+        <li><strong>Detailed/Revised Estimate:</strong> Based on working drawings. Uses Bill of Quantities (BOQ). Accuracy ±5–10%.</li>
+        <li><strong>Supplementary Estimate:</strong> Additional works not in original scope.</li>
+        <li><strong>Annual Maintenance Estimate:</strong> For ongoing repair and upkeep.</li>
+      </ul>
+      <div class="formula-box">
+        <div class="box-title">📐 Estimation Methods</div>
+        <div class="fml">Plinth Area Cost = Plinth Area (m²) × Plinth Area Rate (₹/m²)</div>
+        <div class="fml">Cubical Content Cost = Volume (m³) × Cubic Rate (₹/m³)</div>
+        <div class="fml">BOQ Method: Cost of item = Quantity × Rate per unit</div>
+        <div class="fml">Rate Analysis: Unit Rate = Material cost + Labour cost + Overhead (10–15%) + Profit (10–15%)</div>
+        <div class="fml">Abstract Estimate = Σ (Quantity × Rate) for all items</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Estimation Examples</div>
+        <p><strong>Brick masonry quantity:</strong> 1 m³ brickwork in English bond (1:6 mortar):</p>
+        <p>Standard brick = 190×90×90mm. With mortar (10mm joints): unit volume = 200×100×100mm = 0.002 m³<br>
+        Bricks per m³ = 1/0.002 = <strong>500 bricks</strong><br>
+        Mortar volume = 0.3 × 1 = 0.3 m³ (approximately 30% of total)</p>
+        <p><strong>Concrete quantity (M20 for 1 m³):</strong><br>
+        Mix 1:1.5:3 (C:FA:CA). Dry volume = 1.54 × 1 = 1.54 m³<br>
+        Cement = 1.54/5.5 = 0.28 m³ = 0.28 × 1440 = <strong>403 kg ≈ 8 bags</strong><br>
+        Fine Aggregate = 0.28 × 1.5 = 0.42 m³, Coarse Aggregate = 0.28 × 3 = 0.84 m³</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Disaster-Resistant Structures</div>
+      <p>India is highly vulnerable to natural hazards. About 59% of land is earthquake-prone, 68% of cultivable land is drought-prone, 75% of coastline is cyclone-prone, and ~40 million hectares is flood-prone. The Bureau of Indian Standards (BIS) provides codes for disaster-resistant design.</p>
+      <p><strong>Seismic Design (IS:1893-2016):</strong> India is divided into 4 seismic zones (II, III, IV, V — lowest to highest hazard). The seismic design force is calculated as a product of the seismic zone factor, importance factor, response reduction factor, and the design base shear formula.</p>
+      <div class="formula-box">
+        <div class="box-title">📐 Seismic Design (IS:1893)</div>
+        <div class="fml">Design Seismic Base Shear: VB = Ah × W</div>
+        <div class="fml">Seismic Design Coefficient: Ah = (Z/2) × (I/R) × (Sa/g)</div>
+        <div class="fml">where: Z = Zone factor, I = Importance factor, R = Response reduction factor</div>
+        <div class="fml">Sa/g = Spectral acceleration (from IS:1893 spectra)</div>
+        <div class="fml">W = Seismic weight of building</div>
+      </div>
+      <table>
+        <tr><th>Seismic Zone</th><th>Zone Factor (Z)</th><th>Example Areas</th><th>Intensity (MMI)</th></tr>
+        <tr><td>Zone II (Low)</td><td>0.10</td><td>South India, parts of MP, Rajasthan</td><td>VI or less</td></tr>
+        <tr><td>Zone III (Moderate)</td><td>0.16</td><td>Kerala, Goa, Gujarat coast, UP</td><td>VII</td></tr>
+        <tr><td>Zone IV (High)</td><td>0.24</td><td>Delhi, J&K, Himachal, UP hills</td><td>VIII</td></tr>
+        <tr><td>Zone V (Very High)</td><td>0.36</td><td>NE India, Himalayan belt, Andaman</td><td>IX+</td></tr>
+      </table>
+      <p><strong>Ductile detailing (IS:13920):</strong> Ensures RC structures can deform without collapsing. Key requirements: confinement reinforcement at column ends, strong column–weak beam philosophy, closed stirrups at joints.</p>
+      <p><strong>Wind design (IS:875 Part 3):</strong> Wind loads calculated based on basic wind speed (Vb), terrain category, building height, and topographic factors. India's basic wind speed ranges from 33–55 m/s in different wind zones.</p>
+      <div class="numerical-box">
+        <div class="box-title">📊 Seismic Example</div>
+        <p><strong>Q:</strong> Building in Zone IV (Z=0.24), I=1.0, R=5.0, Sa/g=2.5 (medium soil, T<0.5s). Building weight W=5000 kN. Find VB.</p>
+        <p>Ah = (0.24/2) × (1.0/5.0) × 2.5 = 0.12 × 0.2 × 2.5 = <strong>0.06</strong><br>
+        VB = 0.06 × 5000 = <strong>300 kN</strong></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section" id="s3">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-a">SECTION 3</span>
+    <h3>Environmental Planning and Design</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Ecological Principles</div>
+      <p>Ecology studies the relationships between organisms and their environment. For architects and planners, ecological principles guide sustainable design decisions — from site selection to material choice to urban form.</p>
+      <ul>
+        <li><strong>Ecosystem:</strong> A community of living organisms interacting with their physical environment (soil, water, air, energy). Example: a wetland ecosystem includes water, aquatic plants, birds, fish, and microorganisms.</li>
+        <li><strong>Food web and energy flow:</strong> Energy flows from producers (plants) to consumers (herbivores → carnivores) with approximately 10% efficiency at each trophic level (Lindemann's 10% rule).</li>
+        <li><strong>Carrying Capacity (K):</strong> The maximum population an ecosystem can sustainably support. When population exceeds K, resources deplete and population crashes.</li>
+        <li><strong>Ecological Footprint:</strong> The land area needed to sustain a population's resource consumption and absorb its waste. The global average is ~2.8 ha/person; Earth can sustainably provide ~1.6 ha/person — indicating global overshoot.</li>
+        <li><strong>Urban Heat Island (UHI):</strong> Urban areas are 2–5°C warmer than surrounding rural areas due to dark impervious surfaces, reduced vegetation, waste heat from buildings and vehicles. Mitigation: green roofs, urban forests, cool pavements, water bodies.</li>
+      </ul>
+      <div class="formula-box">
+        <div class="box-title">📐 Ecological Footprint</div>
+        <div class="fml">EF = (Population × Per capita consumption) / Productivity per hectare</div>
+        <div class="fml">Biocapacity Reserve = Biocapacity − Ecological Footprint (positive = surplus)</div>
+        <div class="fml">Energy at each trophic level = 10% of previous level (Lindemann's Law)</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Environmental Pollution — Types, Causes, Controls</div>
+      <p><strong>Air Pollution:</strong> Pollutants include Particulate Matter (PM2.5, PM10), Nitrogen Oxides (NOx), Sulphur Dioxide (SO₂), Carbon Monoxide (CO), Carbon Dioxide (CO₂), Volatile Organic Compounds (VOCs), and Ozone (O₃). Sources: vehicles, industry, construction, biomass burning. India's National Ambient Air Quality Standards (NAAQS) set permissible limits.</p>
+      <p><strong>Water Pollution:</strong> Measured by Biological Oxygen Demand (BOD), Chemical Oxygen Demand (COD), Total Dissolved Solids (TDS), and coliform count. BOD is the key indicator for organic pollution — clean water has BOD < 1 mg/L; heavily polluted water has BOD > 10 mg/L.</p>
+      <p><strong>Noise Pollution:</strong> Measured in decibels (dB). The dB scale is logarithmic — 10 dB increase = 10× increase in intensity. Every doubling of distance reduces noise by 6 dB for a point source.</p>
+      <div class="formula-box">
+        <div class="box-title">📐 Noise & Pollution Formulae</div>
+        <div class="fml">Combined noise level: L = 10 log₁₀ (10^(L1/10) + 10^(L2/10)) dB</div>
+        <div class="fml">Noise reduction with distance: ΔL = 20 log₁₀(d2/d1) for point source</div>
+        <div class="fml">BOD₅ = (Initial DO − Final DO) × Dilution factor</div>
+        <div class="fml">DO Sag curve: Dc = (Kd × Lo) / (Kr − Kd) × (e^-Kd·t − e^-Kr·t)</div>
+      </div>
+      <table>
+        <tr><th>Parameter</th><th>Residential Zone</th><th>Commercial Zone</th><th>Industrial Zone</th><th>Silence Zone</th></tr>
+        <tr><td>Day noise (6am–10pm)</td><td>55 dB(A)</td><td>65 dB(A)</td><td>75 dB(A)</td><td>50 dB(A)</td></tr>
+        <tr><td>Night noise (10pm–6am)</td><td>45 dB(A)</td><td>55 dB(A)</td><td>70 dB(A)</td><td>40 dB(A)</td></tr>
+      </table>
+      <table>
+        <tr><th>Air Pollutant</th><th>Annual NAAQS Limit</th><th>24-hr Limit</th></tr>
+        <tr><td>PM2.5</td><td>40 μg/m³</td><td>60 μg/m³</td></tr>
+        <tr><td>PM10</td><td>60 μg/m³</td><td>100 μg/m³</td></tr>
+        <tr><td>SO₂</td><td>50 μg/m³</td><td>80 μg/m³</td></tr>
+        <tr><td>NO₂</td><td>40 μg/m³</td><td>80 μg/m³</td></tr>
+        <tr><td>CO</td><td>—</td><td>2000 μg/m³</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Climate Responsive Design</div>
+      <p>Climate responsive design uses the local climate as a resource rather than a problem — reducing energy consumption by passively maintaining comfort. India has 5 major climate zones (NBC): Hot-Dry, Warm-Humid, Composite (Mixed), Cold, and Temperate.</p>
+      <table>
+        <tr><th>Climate Zone</th><th>Key Challenge</th><th>Design Strategy</th><th>Example City</th></tr>
+        <tr><td>Hot-Dry</td><td>Solar gain, low humidity</td><td>Thick walls (thermal mass), internal courtyards, small north-south openings, wind catchers, vegetated shade</td><td>Jodhpur, Jaisalmer, Ahmedabad</td></tr>
+        <tr><td>Warm-Humid</td><td>Heat + high humidity, no cooling effect from walls</td><td>Raised floors, max ventilation, wide overhangs (1.2–1.8m), shaded verandahs, light construction</td><td>Chennai, Mumbai, Kolkata, Kochi</td></tr>
+        <tr><td>Composite</td><td>Seasonal extremes — hot summers, cold winters</td><td>Combination strategies; adjustable openings, moderate thermal mass, deciduous planting for summer shade + winter sun</td><td>Delhi, Nagpur, Pune</td></tr>
+        <tr><td>Cold</td><td>Heat loss, wind chill</td><td>South-facing glazing (Trombe wall), compact form (min surface area), insulation, double-skin façade</td><td>Shimla, Leh, Srinagar</td></tr>
+        <tr><td>Temperate</td><td>Mild, moderate</td><td>Moderate openings, natural ventilation</td><td>Bangalore, Mysore</td></tr>
+      </table>
+      <div class="formula-box">
+        <div class="box-title">📐 Thermal Comfort & Energy Formulas</div>
+        <div class="fml">U-value (thermal transmittance) = 1/R_total = 1 / (Rsi + ΣR_layers + Rso)</div>
+        <div class="fml">R-value of a layer = thickness (m) / thermal conductivity λ (W/m·K)</div>
+        <div class="fml">Heat gain through wall: Q = U × A × ΔT (W)</div>
+        <div class="fml">Solar Heat Gain Coefficient (SHGC): fraction of solar radiation admitted through glazing</div>
+        <div class="fml">Window-to-Wall Ratio (WWR) = Window area / Wall area × 100%</div>
+        <div class="fml">Degree Days (Heating) = Σ(Tb − T_mean) for days when T_mean < Tb</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Thermal Example</div>
+        <p><strong>Q:</strong> A 200mm brick wall (λ=0.75 W/m·K) with 12mm plaster inside (λ=0.5) and outside. Inside resistance Rsi=0.13, outside Rso=0.04. Calculate U-value and heat loss for 50 m² wall, ΔT=15°C.</p>
+        <p>R_brick = 0.200/0.75 = 0.267 m²K/W<br>
+        R_plaster (×2) = 0.012/0.5 = 0.024 m²K/W each<br>
+        R_total = 0.13 + 0.024 + 0.267 + 0.024 + 0.04 = <strong>0.485 m²K/W</strong><br>
+        U = 1/0.485 = <strong>2.06 W/m²K</strong><br>
+        Heat loss Q = 2.06 × 50 × 15 = <strong>1545 W = 1.545 kW</strong></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section" id="s4">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-a">SECTION 4</span>
+    <h3>Urban Design, Landscape and Conservation</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Concepts and Theories of Urban Design</div>
+      <p>Urban design operates at the intersection of architecture, planning, and landscape — shaping the public realm and the physical environment of cities at the scale between individual buildings and the city as a whole.</p>
+      <ul>
+        <li><strong>Kevin Lynch — Image of the City (1960):</strong> Cities are perceived through 5 elements: <em>Paths</em> (routes of movement — streets, walkways), <em>Edges</em> (boundaries and linear breaks — walls, rivers, rail lines), <em>Districts</em> (areas with distinct character perceived as having identity), <em>Nodes</em> (strategic points of concentration — intersections, squares), and <em>Landmarks</em> (external point references — towers, monuments). Imageability is the quality of a place that evokes a strong mental image.</li>
+        <li><strong>Gordon Cullen — Townscape (1961):</strong> Serial vision (experience of moving through a sequence of spaces), Optics (here/there — visual contrast between existing and emerging views), Place (sense of belonging — position, territory), Content (fabric, colour, texture, scale).</li>
+        <li><strong>Jane Jacobs — Death and Life of Great American Cities (1961):</strong> Conditions for vibrant city streets: mixed primary uses, short blocks, aged buildings, concentration of people. Eyes on the street = natural surveillance = safety.</li>
+        <li><strong>Jan Gehl — Cities for People (2010):</strong> 12 quality criteria for public spaces in 3 categories: Protection (from traffic, crime, sensory unpleasantness), Comfort (walking, standing, sitting, seeing, talking, playing), Delight (scale, weather, positive sensory experiences).</li>
+        <li><strong>New Urbanism:</strong> Charter of New Urbanism (1993). Walkable neighbourhoods, mixed uses, traditional architecture, transit connections, human scale. Design principles: interconnected street grid, narrow streets, front porches, garages at rear.</li>
+        <li><strong>Leon Krier:</strong> The city of quarters — urban blocks with perimeter buildings defining streets and squares. Critique of functional zoning; advocates mixed-use urban fabric.</li>
+      </ul>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Development Controls — FAR, Densities, Byelaws</div>
+      <p>Development controls are the regulatory tools that shape how the built environment is formed. They operate at the plot level (setbacks, coverage, FAR) and the urban level (zoning, density controls, design guidelines).</p>
+      <div class="formula-box">
+        <div class="box-title">📐 Development Control Formulae</div>
+        <div class="fml">Floor Area Ratio (FAR) = Total Floor Area / Plot Area</div>
+        <div class="fml">Permissible floors = FAR / (Ground Coverage %)</div>
+        <div class="fml">Density (Gross) = Total Population / Total Area (in hectares) = persons/ha</div>
+        <div class="fml">Density (Net) = Total Population / Residential Area only (ha)</div>
+        <div class="fml">Dwelling density = Number of Dwelling Units / Area (in hectares) = du/ha</div>
+        <div class="fml">Plot coverage = Footprint / Plot area × 100%</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Development Control Problems</div>
+        <p><strong>Q1:</strong> A residential zone has FAR=2.5, coverage=55%, plot=800m². Design the maximum building.<br>
+        Max built-up = 800 × 2.5 = 2000 m²<br>
+        Max footprint = 800 × 0.55 = 440 m²<br>
+        Floors = 2000/440 = <strong>4.54 → 4 floors</strong> (floor 4 can be partial = 2000 − 3×440 = 680 m²)</p>
+        <p><strong>Q2:</strong> A sector of 50 ha houses 8,500 people. Half the area is residential. Find gross and net density.<br>
+        Gross density = 8500/50 = <strong>170 persons/ha</strong><br>
+        Net density = 8500/25 = <strong>340 persons/ha</strong></p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Heritage Conservation</div>
+      <p>Heritage conservation protects culturally significant buildings, precincts, and landscapes for future generations. Conservation philosophy is guided by international charters (Venice Charter 1964, Burra Charter 1979) and national legislation (Ancient Monuments Act 1958).</p>
+      <p><strong>Degrees of Intervention (least to most invasive):</strong></p>
+      <ol>
+        <li><strong>Preservation:</strong> Maintaining existing form without change; arresting decay.</li>
+        <li><strong>Conservation:</strong> Maintaining and/or repairing existing fabric.</li>
+        <li><strong>Consolidation:</strong> Binding together components to maintain structural integrity.</li>
+        <li><strong>Restoration:</strong> Returning to a known earlier state (only when evidence exists).</li>
+        <li><strong>Rehabilitation/Adaptive Reuse:</strong> Enabling compatible contemporary use while retaining cultural significance.</li>
+        <li><strong>Reconstruction:</strong> Re-creating a vanished structure (requires substantial evidence).</li>
+      </ol>
+      <p><strong>India's Heritage Grading (ASI + Local Bodies):</strong></p>
+      <ul>
+        <li><strong>Grade I:</strong> Exceptional national/international importance (ASI-protected). No alteration, additions, or demolition permitted.</li>
+        <li><strong>Grade II (A & B):</strong> Important regional monuments. Limited alterations with expert committee approval.</li>
+        <li><strong>Grade III:</strong> Local significance. Alterations permitted with guidelines.</li>
+      </ul>
+      <div class="remember-box">
+        <strong>Key Facts:</strong> UNESCO has 42 World Heritage Sites in India (as of 2023). INTACH (Indian National Trust for Art and Cultural Heritage) was founded in 1984. Venice Charter (1964): "The intention in conserving and restoring monuments is to safeguard them no less as works of art than as historical evidence." Buffer zone around ASI monuments: 100m (prohibited) + 200m (regulated).
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section" id="s5">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-a">SECTION 5</span>
+    <h3>Planning Process</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Urban Planning Theories and Concepts</div>
+      <p>Urban planning theories reflect the dominant ideological and professional frameworks of their time. Key theories every GATE candidate must know:</p>
+      <table>
+        <tr><th>Theory/Model</th><th>Proponent</th><th>Year</th><th>Key Concept</th></tr>
+        <tr><td>Garden City</td><td>Ebenezer Howard</td><td>1898</td><td>Town-country magnet; self-sufficient planned towns surrounded by green belts; Letchworth (1903), Welwyn (1920)</td></tr>
+        <tr><td>Radiant City (Ville Radiant)</td><td>Le Corbusier</td><td>1925–35</td><td>High-rise towers in a park; separation of functions; death of the street; CIAM principles</td></tr>
+        <tr><td>Broad Acre City</td><td>Frank Lloyd Wright</td><td>1932</td><td>Decentralized, car-based settlement; 1 acre per family; anti-urban</td></tr>
+        <tr><td>Neighbourhood Unit</td><td>Clarence Perry</td><td>1929</td><td>Self-contained residential area 400–800m radius, ~5000 pop, around elementary school</td></tr>
+        <tr><td>Survey-Analysis-Plan</td><td>Patrick Geddes</td><td>1915</td><td>"Diagnosis before treatment" — understand before designing; valley section; civic survey</td></tr>
+        <tr><td>Advocacy Planning</td><td>Paul Davidoff</td><td>1965</td><td>Planners as advocates for minority communities; pluralism in planning</td></tr>
+        <tr><td>Communicative Planning</td><td>Habermas/Healey</td><td>1990s</td><td>Planning as communicative action; participatory consensus-building</td></tr>
+        <tr><td>New Urbanism</td><td>Duany, Plater-Zyberk</td><td>1993</td><td>Walkable, traditional neighbourhood design (TND); TOD; Charter of New Urbanism</td></tr>
+        <tr><td>Smart Growth</td><td>US EPA</td><td>1990s</td><td>10 principles: mixed uses, walkability, compact development, transit, infill</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Ekistics</div>
+      <p>Ekistics (from Greek: οἰκιστική, oikistike — the science of human settlements) was founded by Greek planner Constantinos A. Doxiadis in the 1950s–60s. It attempts a comprehensive, scientific study of human settlements at all scales.</p>
+      <p><strong>The 5 Elements of Ekistics:</strong> Nature (physical environment), Anthropos/Man (the human), Society (social organization), Shells (buildings and structures), Networks (infrastructure and communications).</p>
+      <p><strong>15 Ekistic Units (hierarchy of settlements):</strong></p>
+      <table>
+        <tr><th>Unit No.</th><th>Name</th><th>Population</th><th>Example</th></tr>
+        <tr><td>1</td><td>Anthropos (Room)</td><td>1</td><td>Single room</td></tr>
+        <tr><td>2</td><td>Dwelling</td><td>2–5</td><td>Family home</td></tr>
+        <tr><td>3</td><td>Dwelling Group</td><td>~40</td><td>Cluster</td></tr>
+        <tr><td>4</td><td>Small Neighbourhood</td><td>~250</td><td>Block</td></tr>
+        <tr><td>5</td><td>Neighbourhood</td><td>~1,500</td><td>Perry's unit</td></tr>
+        <tr><td>6</td><td>Small Polis (Town)</td><td>~10,000</td><td>Small town</td></tr>
+        <tr><td>7</td><td>Polis (City)</td><td>75,000</td><td>Medium city</td></tr>
+        <tr><td>8</td><td>Small Metropolis</td><td>500,000</td><td>—</td></tr>
+        <tr><td>9</td><td>Metropolis</td><td>4 million</td><td>Delhi, Mumbai</td></tr>
+        <tr><td>10</td><td>Megalopolis</td><td>25 million</td><td>BosWash corridor</td></tr>
+        <tr><td>15</td><td>Ecumenopolis</td><td>All humanity</td><td>Future global settlement</td></tr>
+      </table>
+      <p><strong>Dynapolis:</strong> Doxiadis's concept of a linearly growing city with an expanding core — contrasted with the static, concentric, traditional city model.</p>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Cost-Benefit Analysis and URDPFI</div>
+      <div class="formula-box">
+        <div class="box-title">📐 CBA Formulae</div>
+        <div class="fml">NPV = Σ [Bt − Ct] / (1+r)^t   over all years t</div>
+        <div class="fml">B/C Ratio = PV of Benefits / PV of Costs   (viable if > 1)</div>
+        <div class="fml">IRR: discount rate at which NPV = 0</div>
+        <div class="fml">Payback Period = Initial Investment / Annual Net Benefit</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 CBA Example</div>
+        <p><strong>Q:</strong> A flyover project costs ₹200 crore today and ₹10 crore/year maintenance. Annual benefits (time savings, fuel) = ₹40 crore. Discount rate = 10%. Is it viable over 20 years?</p>
+        <p>Annual net benefit = 40 − 10 = ₹30 crore/year<br>
+        PV of annuity = 30 × [(1 − 1.10^-20)/0.10] = 30 × 8.514 = ₹255.4 crore<br>
+        B/C = 255.4/200 = <strong>1.28 > 1 → Viable</strong><br>
+        NPV = 255.4 − 200 = <strong>₹55.4 crore (positive)</strong></p>
+      </div>
+      <p><strong>URDPFI Guidelines (Urban and Regional Development Plans Formulation and Implementation, MoHUA 2014):</strong></p>
+      <table>
+        <tr><th>Facility</th><th>Standard (per population)</th><th>Area / Norms</th></tr>
+        <tr><td>Primary School</td><td>1 per 2,500</td><td>Within 500m; 0.5–1.0 ha</td></tr>
+        <tr><td>Secondary School</td><td>1 per 7,500</td><td>Within 1.5 km; 1.5–2.0 ha</td></tr>
+        <tr><td>Neighbourhood Park</td><td>1 per 5,000</td><td>min 0.5 ha; within 400m</td></tr>
+        <tr><td>Community Hall</td><td>1 per 15,000</td><td>—</td></tr>
+        <tr><td>Primary Health Centre</td><td>1 per 15,000</td><td>—</td></tr>
+        <tr><td>Post Office</td><td>1 per 15,000</td><td>—</td></tr>
+        <tr><td>Police Station</td><td>1 per 90,000</td><td>—</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="section" id="s6">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-a">SECTION 6</span>
+    <h3>Housing</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Housing Typologies and Residential Densities</div>
+      <p>Housing form determines the density, community interaction, and urban character of residential areas. Each typology offers a different balance of privacy, community, density, and cost.</p>
+      <table>
+        <tr><th>Typology</th><th>Density (du/ha)</th><th>Stories</th><th>Characteristics</th><th>Examples</th></tr>
+        <tr><td>Detached house</td><td>10–20</td><td>1–2</td><td>Max privacy, garden, high land use, low efficiency</td><td>Suburban bungalows</td></tr>
+        <tr><td>Semi-detached</td><td>20–35</td><td>2</td><td>Shared wall, moderate privacy, small garden</td><td>British-era Civil Lines</td></tr>
+        <tr><td>Row house/Terrace</td><td>35–60</td><td>2–3</td><td>Shared side walls, linear; efficient land use; community street</td><td>Jaipur walled city havelis</td></tr>
+        <tr><td>Walk-up apartments</td><td>75–200</td><td>3–5</td><td>No lift; economical; moderate density; communal stair</td><td>Delhi Development Authority flats</td></tr>
+        <tr><td>Mid-rise apartments</td><td>150–350</td><td>5–12</td><td>Lift mandatory; efficient; urban character</td><td>Mumbai chawl replacement</td></tr>
+        <tr><td>High-rise apartments</td><td>300–600+</td><td>12+</td><td>Very high density; lifts mandatory; vertical community challenges</td><td>Vertical slum redevelopment, Antilia</td></tr>
+        <tr><td>Mixed-use housing</td><td>150–400</td><td>4–12</td><td>Ground floor commercial; housing above; vibrant streets</td><td>Khan Market, Connaught Place</td></tr>
+      </table>
+      <div class="formula-box">
+        <div class="box-title">📐 Density Calculations</div>
+        <div class="fml">Gross residential density (pph) = Total population / Total site area (ha)</div>
+        <div class="fml">Net residential density (pph) = Total population / Net residential area only (ha)</div>
+        <div class="fml">Plot ratio (FAR) = Total floor area / Plot area</div>
+        <div class="fml">Persons per dwelling unit = Total population / No. of dwelling units</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Housing Density Problems</div>
+        <p><strong>Q:</strong> A 10 ha housing scheme has 600 dwelling units. Average household size = 4.5 persons. Calculate dwelling density and gross residential density.</p>
+        <p>Dwelling density = 600/10 = <strong>60 du/ha</strong><br>
+        Total population = 600 × 4.5 = 2700 persons<br>
+        Gross density = 2700/10 = <strong>270 pph</strong></p>
+        <p><strong>Q:</strong> A 50 ha township plan: 40% residential, 20% roads, 15% parks, 25% other uses. Total population = 25,000. Find net and gross residential density.</p>
+        <p>Gross density = 25000/50 = <strong>500 pph</strong><br>
+        Residential area = 50 × 0.40 = 20 ha<br>
+        Net residential density = 25000/20 = <strong>1250 pph</strong> (very high density)</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Neighbourhood Unit (Perry) and Affordable Housing</div>
+      <p><strong>Perry's Neighbourhood Unit (1929)</strong> is the foundational concept in residential planning. It creates a self-sufficient residential area scaled to elementary school attendance — defining the ideal walking distance for children and residents.</p>
+      <p><strong>6 Principles of Perry's Neighbourhood Unit:</strong></p>
+      <ol>
+        <li><strong>Size:</strong> Should house as many families as needed for one elementary school (~5,000–10,000 people; area ~65 ha; radius ~400–800m).</li>
+        <li><strong>Boundaries:</strong> Bounded by arterial roads on all sides, not crossed by through traffic.</li>
+        <li><strong>Open Spaces:</strong> System of small parks and recreation spaces (~10% of total area).</li>
+        <li><strong>Institution Sites:</strong> School and other civic buildings at the centre or in common areas.</li>
+        <li><strong>Local Shops:</strong> Located at periphery at traffic junctions, not inside the residential area.</li>
+        <li><strong>Internal Street System:</strong> Internal streets designed for local circulation only — reduces through traffic, ensures safety.</li>
+      </ol>
+      <p><strong>Affordable Housing in India — PMAY (Pradhan Mantri Awas Yojana):</strong></p>
+      <table>
+        <tr><th>Category</th><th>Annual Income</th><th>Carpet Area</th><th>Loan Subsidy</th><th>Subsidy Rate</th></tr>
+        <tr><td>EWS (Economically Weaker Section)</td><td>Up to ₹3 lakh</td><td>Up to 30 m²</td><td>Up to ₹6 lakh</td><td>6.5%</td></tr>
+        <tr><td>LIG (Low Income Group)</td><td>₹3–6 lakh</td><td>Up to 60 m²</td><td>Up to ₹6 lakh</td><td>6.5%</td></tr>
+        <tr><td>MIG-I (Middle Income)</td><td>₹6–12 lakh</td><td>Up to 120 m²</td><td>Up to ₹9 lakh</td><td>4.0%</td></tr>
+        <tr><td>MIG-II (Middle Income)</td><td>₹12–18 lakh</td><td>Up to 150 m²</td><td>Up to ₹12 lakh</td><td>3.0%</td></tr>
+      </table>
+      <div class="remember-box">
+        <strong>GATE Key Fact:</strong> PMAY (Urban) launched June 2015, target: Housing for All by 2022. Components: In-situ Slum Redevelopment (ISSR), Affordable Housing through Credit Linked Subsidy (CLSS), Affordable Housing in Partnership (AHP), Beneficiary-Led Construction (BLC). Under CLSS EWS/LIG: Max benefit ≈ ₹2.67 lakh (NPV of subsidy). Total PMAY-U sanctioned houses: over 1.12 crore by 2022.
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Real Estate Valuation</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Valuation Methods & Formulas</div>
+        <div class="fml">1. Market Comparison Method: Value = (comparable sale price) adjusted for differences</div>
+        <div class="fml">2. Cost Approach: Value = Land value + Depreciated Building cost</div>
+        <div class="fml">   Straight-line depreciation = (Cost − Salvage value) / Useful life</div>
+        <div class="fml">3. Income Capitalization: Value = Net Operating Income (NOI) / Capitalization Rate</div>
+        <div class="fml">   NOI = Gross income − Vacancy − Operating expenses</div>
+        <div class="fml">4. Discounted Cash Flow (DCF): Value = Σ CF_t / (1+r)^t + Terminal value / (1+r)^n</div>
+        <div class="fml">5. Residual (Development) Method: GDV − Development costs = Land value</div>
+        <div class="fml">   GDV = Gross Development Value (total saleable area × sale rate)</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Valuation Examples</div>
+        <p><strong>Q (Income Capitalization):</strong> An office building generates ₹48 lakh/year rent. Vacancies and expenses reduce this by 30%. Cap rate = 8%. Find property value.</p>
+        <p>NOI = 48 × 0.70 = ₹33.6 lakh/year<br>
+        Value = 33.6 / 0.08 = <strong>₹420 lakh = ₹4.2 crore</strong></p>
+        <p><strong>Q (Residual):</strong> A 2000 m² plot in commercial area. Permissible FAR=4, rate of sale=₹8000/m², development cost=₹3000/m². Find land value.</p>
+        <p>Total built-up = 2000×4 = 8000 m²<br>
+        GDV = 8000 × 8000 = ₹6.4 crore<br>
+        Development cost = 8000 × 3000 = ₹2.4 crore<br>
+        Land value = 6.4 − 2.4 = <strong>₹4.0 crore</strong></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION 7 -->
+<div class="section" id="s7">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-a">SECTION 7</span>
+    <h3>Services and Infrastructure</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Fire Fighting Systems</div>
+      <p>Fire protection systems combine passive design measures (fire-rated construction, compartmentalization, escape routes) with active systems (sprinklers, extinguishers, detection, suppression).</p>
+      <table>
+        <tr><th>System Type</th><th>Description</th><th>Application</th></tr>
+        <tr><td>Wet Riser System</td><td>Permanently charged water-filled pipes; hose cabinets on each floor; pressure maintained</td><td>Multi-storey residential/commercial > 15m</td></tr>
+        <tr><td>Dry Riser System</td><td>Pipes charged only during fire-fighting by fire brigade pumps at ground level</td><td>Buildings 15–45m height</td></tr>
+        <tr><td>Sprinkler System</td><td>Automatic heads that activate when temperature reaches 68°C (standard); 93°C (high-temp)</td><td>Warehouses, shopping malls, hotels</td></tr>
+        <tr><td>Halon/CO₂ Systems</td><td>Gas suppression for sensitive areas; no water damage</td><td>Server rooms, electrical switchrooms</td></tr>
+        <tr><td>Foam System</td><td>For flammable liquid fires (Class B)</td><td>Fuel storage, aircraft hangars</td></tr>
+        <tr><td>Hose Reel</td><td>First-aid firefighting; 36m hose + 6m jet = 42m coverage</td><td>All occupied buildings</td></tr>
+      </table>
+      <div class="formula-box">
+        <div class="box-title">📐 Fire Safety Calculations (NBC Part 4)</div>
+        <div class="fml">Number of fire exits = occupant load / exit capacity</div>
+        <div class="fml">Occupant load = floor area / occupant load factor (m²/person)</div>
+        <div class="fml">Exit capacity: 1 unit of exit width (550mm) handles 40 persons/min (NBC)</div>
+        <div class="fml">Max travel distance: 22.5m to exit (dead-end), 45m (2-way) for most occupancies</div>
+        <div class="fml">Sprinkler coverage: Standard response = 12 m² per head; Extended = 20.9 m² per head</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Fire Safety Problem</div>
+        <p><strong>Q:</strong> An assembly hall is 40m × 25m = 1000 m². Occupant load factor = 0.65 m²/person. How many exits and what total exit width is needed? (Allow 2 min evacuation)</p>
+        <p>Occupant load = 1000 / 0.65 = <strong>1538 persons</strong><br>
+        Total exit width needed = 1538 / (40 persons/min × 2 min) = 1538/80 = <strong>19.2 units</strong><br>
+        Width in mm = 19.2 × 550 = 10,560mm → Provide minimum <strong>3 exits × 3600mm each</strong> (= 10,800mm)</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Water Supply Systems</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Water Supply Design Formulas</div>
+        <div class="fml">Daily demand Q = P × q   (P = population, q = per capita demand in lpcd)</div>
+        <div class="fml">Peak hour demand = 2.7 × average hourly demand (for towns)</div>
+        <div class="fml">Peak daily demand = 1.8 × average daily demand</div>
+        <div class="fml">Pipe flow (Hazen-Williams): V = 0.8492 × C × R^0.63 × S^0.54 (m/s)</div>
+        <div class="fml">where C = roughness coefficient, R = hydraulic radius (m), S = hydraulic gradient</div>
+        <div class="fml">Overhead tank capacity = 1/3 of daily demand</div>
+        <div class="fml">Underground sump capacity = 1/2 of daily demand</div>
+        <div class="fml">Fire reserve storage: typically 3 hours fire-fighting demand</div>
+      </div>
+      <table>
+        <tr><th>Consumer Type</th><th>Per Capita Demand (lpcd)</th></tr>
+        <tr><td>Cities > 1 million</td><td>150–200</td></tr>
+        <tr><td>Cities 0.1–1 million</td><td>100–150</td></tr>
+        <tr><td>Towns < 0.1 million</td><td>70–100</td></tr>
+        <tr><td>Rural (piped supply)</td><td>40–70</td></tr>
+        <tr><td>Hospitals (per bed)</td><td>450–500</td></tr>
+        <tr><td>Hotels (per room)</td><td>180–220</td></tr>
+        <tr><td>Schools (per student per day)</td><td>45–90</td></tr>
+      </table>
+      <div class="numerical-box">
+        <div class="box-title">📊 Water Supply Problems</div>
+        <p><strong>Q:</strong> Design water storage for a housing society of 500 families (avg 4 persons/family) with q=135 lpcd. Find daily demand, OHT size, sump size.</p>
+        <p>Population = 500 × 4 = 2000 persons<br>
+        Daily demand = 2000 × 135 = 270,000 litres = <strong>270 m³/day</strong><br>
+        OHT capacity = 270/3 = <strong>90 m³</strong> (for 8 hours supply)<br>
+        Sump capacity = 270/2 = <strong>135 m³</strong><br>
+        Peak hour demand = 270 × 1000 × 2.7 / 24 = <strong>30,375 L/hr = 8.44 L/s</strong></p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Sewage and Drainage Systems</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Sewer Design Formulas</div>
+        <div class="fml">Sewage flow = 80% of water supply (8/10th rule)</div>
+        <div class="fml">Manning's formula: V = (1/n) × R^(2/3) × S^(1/2)</div>
+        <div class="fml">where n = Manning's roughness (0.012–0.015 for concrete pipes)</div>
+        <div class="fml">Self-cleansing velocity: min 0.75 m/s (for solids not to settle)</div>
+        <div class="fml">Max velocity: 3 m/s (to prevent scouring)</div>
+        <div class="fml">Sewer gradient (thumb rule): Gradient = 1 / (30 × diameter in cm)</div>
+        <div class="fml">Q = A × V   (flow = cross-section area × velocity)</div>
+        <div class="fml">For circular sewer, full flow: A = π d² / 4</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Sewer Gradient Example</div>
+        <p><strong>Q:</strong> Design gradient for a 300mm dia concrete sewer to achieve self-cleansing velocity.</p>
+        <p>Using thumb rule: gradient = 1/(30 × 30cm) = 1/900 = <strong>0.111% slope</strong><br>
+        Using Manning's (n=0.013, R=d/4=0.075m for full pipe, S=1/900):<br>
+        V = (1/0.013) × 0.075^0.667 × (1/900)^0.5 = 76.9 × 0.178 × 0.0333 = <strong>0.456 m/s</strong><br>
+        → Steeper gradient needed. Try S=1/250:<br>
+        V = 76.9 × 0.178 × 0.063 = <strong>0.863 m/s > 0.75 m/s ✓</strong></p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Solid Waste Management</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Solid Waste Formulas</div>
+        <div class="fml">Total daily generation = Population × Per capita generation rate (kg/capita/day)</div>
+        <div class="fml">Collection vehicle trips = Daily waste / Vehicle capacity</div>
+        <div class="fml">Landfill volume = Daily waste / Compaction factor / (1 − cover ratio)</div>
+        <div class="fml">Landfill life = Total volume / Annual waste volume</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 SWM Calculation</div>
+        <p><strong>Q:</strong> City with 2 million population, 0.45 kg/capita/day waste generation. Design for 20-year landfill. Compaction factor = 3 (waste compacted 3× at landfill). Cover material = 20% of compacted volume.</p>
+        <p>Daily generation = 2,000,000 × 0.45 = 900 tonnes/day<br>
+        Annual generation = 900 × 365 = 328,500 tonnes = 328,500 m³ (assuming density 1 t/m³)<br>
+        Compacted volume/year = 328,500 / 3 = 109,500 m³<br>
+        With 20% cover: total = 109,500 × 1.20 = 131,400 m³/year<br>
+        20-year landfill volume = 131,400 × 20 = <strong>2,628,000 m³ = 2.63 million m³</strong></p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-a"></span>Road Design and Transportation</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Road and Traffic Formulas</div>
+        <div class="fml">Volume/Capacity (V/C) ratio = Observed volume / Capacity</div>
+        <div class="fml">Capacity (PCU/hr/lane) = S × (g/C)</div>
+        <div class="fml">where S = saturation flow (1800 PCU/hr for urban), g = green time, C = cycle length</div>
+        <div class="fml">Sight distance (SSD) = vt + v²/(2a)  (v in m/s, t = reaction 2.5s, a = braking decel 3.4–4.5 m/s²)</div>
+        <div class="fml">Stopping Sight Distance (SSD) at 50 km/h: ≈ 61m (IRC SP:73)</div>
+        <div class="fml">Parking demand = Floor area × parking norm (ECS per 100 m²)</div>
+        <div class="fml">PCU equivalents: Car=1, Truck=3, Bus=3, 2-wheeler=0.5, Cycle=0.2, Auto-rickshaw=0.75</div>
+      </div>
+      <table>
+        <tr><th>Road Type (IRC)</th><th>ROW Width</th><th>Design Speed</th><th>Lanes</th></tr>
+        <tr><td>National Highway (urban)</td><td>60–100m</td><td>80–100 km/h</td><td>4–8</td></tr>
+        <tr><td>Urban Arterial</td><td>30–60m</td><td>60–80 km/h</td><td>4–6</td></tr>
+        <tr><td>Sub-Arterial</td><td>24–30m</td><td>50–60 km/h</td><td>4</td></tr>
+        <tr><td>Collector Street</td><td>18–24m</td><td>30–50 km/h</td><td>2–4</td></tr>
+        <tr><td>Local Street</td><td>9–18m</td><td>20–30 km/h</td><td>2</td></tr>
+        <tr><td>Service Road</td><td>6–9m</td><td>20 km/h</td><td>1–2</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PART B1 ===== -->
+<div class="part-header part-b1-hdr">
+  <h2>PART B1 — Architecture (B.Arch Candidates)</h2>
+  <p>Sections B1.1, B1.2, B1.3 — specific to architecture specialization</p>
+</div>
+
+<!-- SECTION B1.1 -->
+<div class="section" id="sb11">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-b1">B1.1</span>
+    <h3>History and Contemporary Architecture</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b1"></span>World History of Architecture — Chronological Survey</div>
+      <table>
+        <tr><th>Period/Style</th><th>Era</th><th>Key Features</th><th>Key Examples</th></tr>
+        <tr><td>Egyptian</td><td>3000–30 BC</td><td>Post-and-lintel, massive masonry, axial planning, hypostyle hall, monumental scale, pylons, obelisks, hieroglyphics</td><td>Pyramids of Giza, Temple of Karnak, Temple of Luxor, Abu Simbel</td></tr>
+        <tr><td>Greek/Hellenic</td><td>800–146 BC</td><td>3 orders (Doric, Ionic, Corinthian), peristyle colonnade, entasis, optical corrections, human-scale perfection, marble construction</td><td>Parthenon (Ictinus & Callicrates), Erechtheion, Temple of Zeus at Olympia</td></tr>
+        <tr><td>Roman</td><td>509 BC–476 AD</td><td>Arch, vault, dome, concrete (opus incertum, opus reticulatum), urban planning, baths, amphitheatres, aqueducts, basilica type</td><td>Colosseum, Pantheon (120–128 AD, unreinforced concrete dome dia=43.3m), Trajan's Markets, Pont du Gard</td></tr>
+        <tr><td>Byzantine</td><td>330–1453 AD</td><td>Pendentive dome (allows circular dome on square base), mosaic decoration, centralized plan, Greek cross plan</td><td>Hagia Sophia, Istanbul (532–37 AD, dome dia=31.2m); San Vitale, Ravenna</td></tr>
+        <tr><td>Romanesque</td><td>900–1200 AD</td><td>Round arches, thick walls, barrel vaults, small windows, towers, pilgrimage churches</td><td>Durham Cathedral, Pisa Cathedral, Santiago de Compostela</td></tr>
+        <tr><td>Gothic</td><td>1100–1500 AD</td><td>Pointed arch, ribbed vault, flying buttress (transfers lateral thrust), large stained glass windows, vertical soaring space, gargoyles</td><td>Notre Dame de Paris, Chartres Cathedral, Cologne Cathedral, Salisbury Cathedral</td></tr>
+        <tr><td>Renaissance</td><td>1400–1600 AD</td><td>Classical revival, humanism, mathematical proportion, perspective, dome as symbol, Vitruvian principles revisited</td><td>Palazzo Medici (Michelozzo), Florence Cathedral dome (Brunelleschi, 1436, span=42m), St. Peter's (Michelangelo), Palazzo Farnese</td></tr>
+        <tr><td>Baroque</td><td>1600–1750 AD</td><td>Drama, movement, curved surfaces, theatrical space, chiaroscuro, grandeur, elaborate ornamentation, urban set-pieces</td><td>St. Peter's Square (Bernini), Versailles (Le Vau/Hardouin-Mansart), Church of the Gesu</td></tr>
+        <tr><td>Rococo</td><td>1700–1760 AD</td><td>Playful, ornamental interiors, pastel colours, asymmetric curves, lighter than Baroque</td><td>Sanssouci (Frederick the Great), Nymphenburg</td></tr>
+        <tr><td>Neoclassicism</td><td>1750–1850 AD</td><td>Return to Greek/Roman simplicity, rationalism, reaction to Baroque excess</td><td>Panthéon Paris, British Museum (Smirke), US Capitol</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b1"></span>Modern and Contemporary Architecture Movements</div>
+      <table>
+        <tr><th>Movement</th><th>Period</th><th>Key Ideas</th><th>Architects</th><th>Examples</th></tr>
+        <tr><td>Arts and Crafts</td><td>1860–1910</td><td>Reaction to industrialization; handcraft, natural materials, honest construction</td><td>William Morris, Philip Webb</td><td>Red House (Webb, 1859)</td></tr>
+        <tr><td>Art Nouveau</td><td>1890–1910</td><td>Organic curves, natural motifs, total work of art (Gesamtkunstwerk), flowing lines</td><td>Victor Horta, Antonio Gaudí, Hector Guimard</td><td>Hôtel Tassel (Horta, 1893), Casa Batlló (Gaudí, 1906), Sagrada Familia</td></tr>
+        <tr><td>Art Deco</td><td>1920–1940</td><td>Geometric ornament, streamlined forms, machine age glamour, zig-zags, sunburst motifs</td><td>Eliel Saarinen, Raymond Hood</td><td>Chrysler Building (New York, 1930), Empire State Building, Marine Lines buildings (Mumbai)</td></tr>
+        <tr><td>Modernism / International Style</td><td>1920–1970</td><td>Form follows function; no ornament; flat roofs; pilotis; horizontal windows; open plan; machine for living</td><td>Le Corbusier, Mies van der Rohe, Gropius</td><td>Villa Savoye (Le Corbusier, 1929), Barcelona Pavilion (Mies, 1929), Seagram Building (Mies, 1958)</td></tr>
+        <tr><td>Brutalism</td><td>1950–1975</td><td>Raw exposed concrete (béton brut), monolithic, sculptural, honest materials</td><td>Le Corbusier, Alison & Peter Smithson, Paul Rudolph</td><td>Unité d'Habitation, Marseille (1952), Trellick Tower (London), Yale Art & Architecture (Rudolph)</td></tr>
+        <tr><td>Post-Modernism</td><td>1970–1990</td><td>Historical allusion, irony, ornament returns, plurality, complexity and contradiction</td><td>Robert Venturi, Michael Graves, Charles Moore</td><td>AT&T Building (Johnson, 1984), Portland Building (Graves, 1982)</td></tr>
+        <tr><td>High-Tech</td><td>1970s–</td><td>Exposed structure and services, prefab, industrial aesthetics, flexibility</td><td>Norman Foster, Renzo Piano, Richard Rogers</td><td>Pompidou Centre (Piano+Rogers, 1977), Lloyds of London (Rogers), HSBC HK (Foster)</td></tr>
+        <tr><td>Deconstructivism</td><td>1980s–</td><td>Fragmentation, non-Euclidean geometry, distortion, controlled chaos, non-linearity</td><td>Zaha Hadid, Frank Gehry, Daniel Libeskind, Peter Eisenman</td><td>Guggenheim Bilbao (Gehry, 1997), MAXXI Rome (Hadid, 2010), Jewish Museum Berlin (Libeskind, 1999)</td></tr>
+        <tr><td>Parametricism</td><td>2000s–</td><td>Algorithmic design, scripted geometry, continuity, differentiation</td><td>Zaha Hadid Architects, MVRDV</td><td>Heydar Aliyev Center (ZHA, 2013)</td></tr>
+        <tr><td>Sustainable/Green Architecture</td><td>1990s–</td><td>Net-zero energy, passive systems, ecological integration, biophilia</td><td>Ken Yeang, William McDonough, Kengo Kuma</td><td>The Edge (Amsterdam), Bullitt Center (Seattle)</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b1"></span>Indian Architecture — Traditional and Modern</div>
+      <table>
+        <tr><th>Style</th><th>Period</th><th>Key Features</th><th>Examples</th></tr>
+        <tr><td>Indus Valley</td><td>3300–1300 BC</td><td>Grid planning, sophisticated drainage, standardized brick (4:2:1 ratio), granaries, bath</td><td>Mohenjo-daro, Harappa, Dholavira</td></tr>
+        <tr><td>Mauryan / Buddhist</td><td>300 BC–300 AD</td><td>Stupa (relic mound), chaitya (prayer hall), vihara (monastery), rock-cut architecture</td><td>Sanchi Stupa (3rd c BC), Ajanta Caves, Karla Chaitya</td></tr>
+        <tr><td>Nagara (North Indian)</td><td>6th–13th c AD</td><td>Curvilinear shikhara, amalaka (ribbed disc), square plan (mandala), porch (mandapa)</td><td>Kandariya Mahadeva (Khajuraho, 1030 AD), Brihadeeswara (Thanjavur, 1010 AD, Chola but Nagara-influenced)</td></tr>
+        <tr><td>Dravidian (South Indian)</td><td>7th–17th c AD</td><td>Gopuram (towered gateway), vimana (stepped tower over sanctum), multi-pillared halls, tank</td><td>Brihadeeswara Temple (Thanjavur, Chola, 1010 AD, vimana ht=65m), Meenakshi Temple (Madurai), Hampi Virupaksha</td></tr>
+        <tr><td>Mughal</td><td>1526–1857 AD</td><td>Persian+Indian fusion, bulbous dome, iwan (arched portal), charbagh (4-quadrant garden), red sandstone+white marble</td><td>Taj Mahal (Agra, 1632–53), Humayun's Tomb, Red Fort (Delhi), Fatehpur Sikri, Jama Masjid</td></tr>
+        <tr><td>Colonial</td><td>1600–1947 AD</td><td>Indo-Saracenic (fusion), neoclassical, tropical adaptations, bungalow typology</td><td>Victoria Terminus (now CST, Mumbai, 1887, Stevens), Rashtrapati Bhavan (Lutyens, 1929), Chhatrapati Shivaji Museum</td></tr>
+        <tr><td>Modern Indian</td><td>1947–present</td><td>Post-independence search for identity, climate-responsive, regional modernism</td><td>Chandigarh Capitol Complex (Le Corbusier), IIM Ahmedabad (Louis Kahn, 1974), Aranya Housing (B.V. Doshi, Indore), CEPT campus</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION B1.2 -->
+<div class="section" id="sb12">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-b1">B1.2</span>
+    <h3>Building Construction and Structural Systems</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b1"></span>Structural Systems — Classification and Behavior</div>
+      <p>Structural systems can be classified by how they resist gravity loads, lateral loads (wind, seismic), or both. The choice depends on span, height, material, aesthetics, and cost.</p>
+      <table>
+        <tr><th>System</th><th>How it Works</th><th>Typical Span/Height</th><th>Examples</th></tr>
+        <tr><td>Load-bearing masonry</td><td>Walls carry all loads; no separate frame</td><td>up to 4 storeys, spans up to 6m</td><td>Traditional bungalows, chawls</td></tr>
+        <tr><td>RCC Frame (Beam-column)</td><td>Columns + beams form skeleton; walls are infill</td><td>Up to 15–20 storeys</td><td>Standard apartment buildings</td></tr>
+        <tr><td>Shear wall + frame</td><td>RC walls resist lateral loads; columns carry gravity</td><td>15–50 storeys</td><td>Most Indian high-rises</td></tr>
+        <tr><td>Steel moment frame</td><td>Rigid beam-column connections resist lateral</td><td>Up to 40 storeys</td><td>Industrial buildings, offices</td></tr>
+        <tr><td>Braced frame (steel)</td><td>Diagonal members triangulate frame; resist lateral</td><td>Up to 60 storeys</td><td>John Hancock Center (Chicago)</td></tr>
+        <tr><td>Tube structure</td><td>Closely spaced perimeter columns act as hollow tube</td><td>60–100 storeys</td><td>World Trade Center (framed tube), Burj Khalifa (bundled tube)</td></tr>
+        <tr><td>Core + outrigger</td><td>Central RC core + outrigger trusses transfer lateral to perimeter</td><td>50–100+ storeys</td><td>The Shard (London), CCTV HQ (Beijing)</td></tr>
+        <tr><td>Space frame/truss</td><td>3D triangulated network; biaxial span</td><td>Long spans 40–100m</td><td>Airport terminals, stadia roofs</td></tr>
+        <tr><td>Shell structure</td><td>Thin curved surface; axial forces (no bending)</td><td>Spans 30–200m</td><td>Sydney Opera House shells, Kresge Auditorium (Saarinen)</td></tr>
+        <tr><td>Cable/suspension</td><td>Tension cables carry loads; efficient for very long spans</td><td>100–2000m</td><td>Golden Gate Bridge, Brooklyn Bridge, Akashi Kaikyō Bridge</td></tr>
+        <tr><td>Arch</td><td>Converts loads to compression along curve; efficient</td><td>10–500m</td><td>Roman aqueducts, Sydney Harbour Bridge</td></tr>
+      </table>
+      <div class="formula-box">
+        <div class="box-title">📐 Structural Design Principles</div>
+        <div class="fml">Beam depth rule of thumb: d = L/10 to L/15 for simply supported RC beam</div>
+        <div class="fml">Column sizing: P = σ × A, A = P / σ_permissible</div>
+        <div class="fml">Slenderness ratio: λ = L_eff / r (r = radius of gyration = √(I/A))</div>
+        <div class="fml">For columns: λ < 12 = short column; λ = 12–45 = medium; λ > 45 = slender</div>
+        <div class="fml">Deflection limit: L/250 (total), L/350 (active) for RC beams (IS:456)</div>
+        <div class="fml">Dead load: RC = 25 kN/m³; brick masonry = 20 kN/m³; steel = 78.5 kN/m³</div>
+        <div class="fml">Live load (residential floor): 2.0 kN/m² (IS:875 Part 2)</div>
+        <div class="fml">Live load (office): 4.0 kN/m²; Assembly: 5.0 kN/m²; Stair: 5.0 kN/m²</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Structural Problems</div>
+        <p><strong>Q1:</strong> Simply supported RC beam, span = 6m. Estimate beam depth.<br>
+        d ≈ L/12 = 6000/12 = <strong>500mm</strong>. Provide 230mm width × 500mm depth (typical proportion b = d/2).</p>
+        <p><strong>Q2:</strong> An isolated footing carries column load P=900 kN. Safe bearing capacity of soil = 150 kN/m². Find footing area and size.<br>
+        Area required = 900/150 = 6 m²<br>
+        Size = √6 = <strong>2.45m → provide 2.5m × 2.5m footing</strong></p>
+        <p><strong>Q3:</strong> Total dead load of a 100 m² RC flat slab (150mm thick). Self weight per m²?<br>
+        Self weight = 0.150 × 25 = <strong>3.75 kN/m²</strong>. Total for 100m² = 375 kN.</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b1"></span>Building Materials — Properties and Applications</div>
+      <table>
+        <tr><th>Material</th><th>Key Properties</th><th>Standard/Code</th><th>Applications</th></tr>
+        <tr><td>Standard Brick</td><td>Size: 190×90×90mm (modular); CS: 3.5–35 MPa by class (IS:1077)</td><td>IS:1077, IS:3495</td><td>Walls, arches, pavements</td></tr>
+        <tr><td>Cement (OPC 43)</td><td>Setting time: initial >30 min, final < 600 min; 28-day strength 43 MPa</td><td>IS:269</td><td>Concrete, mortar, plaster</td></tr>
+        <tr><td>Concrete M25</td><td>Characteristic cube strength fck=25 MPa; density 2400 kg/m³</td><td>IS:456</td><td>RCC structures, foundations</td></tr>
+        <tr><td>Structural Steel Fe415</td><td>Yield strength fy=415 MPa; UTS=485 MPa; E=200 GPa</td><td>IS:1786</td><td>Reinforcement in RC, steel structures</td></tr>
+        <tr><td>Float Glass</td><td>Transparent; 4–25mm; U-value 5.8 W/m²K (single)</td><td>IS:2835</td><td>Windows, facades, skylights</td></tr>
+        <tr><td>Toughened/Tempered Glass</td><td>5× stronger than annealed; breaks into granules (safe)</td><td>IS:2553</td><td>Balustrades, doors, frameless facades</td></tr>
+        <tr><td>Timber (Teak)</td><td>Density 600–700 kg/m³; durable, workable; fire-susceptible</td><td>IS:287</td><td>Doors, windows, flooring, furniture</td></tr>
+        <tr><td>Bamboo</td><td>Compressive strength ~50 MPa; tensile ~175 MPa; rapidly renewable</td><td>IS:6874</td><td>Low-cost housing, formwork, furniture</td></tr>
+        <tr><td>AAC Block</td><td>Lightweight (600 kg/m³ vs 1800 for brick); good insulation; low dead load</td><td>IS:2185 Part 3</td><td>Non-load-bearing walls, partitions</td></tr>
+        <tr><td>Fly Ash Brick</td><td>Uses industrial waste; 200×100×100mm; CS 7.5–10 MPa</td><td>IS:12894</td><td>Walls (alternative to clay brick)</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b1"></span>Foundations</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Foundation Design Formulas</div>
+        <div class="fml">Gross Bearing Pressure (q_gross) = Total load / Footing area = (P + W_footing) / A</div>
+        <div class="fml">Net Bearing Pressure (q_net) = q_gross − γD  (γ = unit weight of soil, D = depth)</div>
+        <div class="fml">Factor of Safety (FOS) = q_ultimate / q_safe ≥ 3.0</div>
+        <div class="fml">Depth of foundation (Rankine's): D = (q / γ) × [(1 − sinφ)/(1 + sinφ)]²</div>
+        <div class="fml">Settlement S = qB(1-μ²)/E × If  (elastic settlement, q=net pressure, B=width)</div>
+        <div class="fml">Pile capacity (static formula): Q_total = Q_tip + Q_skin = Ap × qp + Σ(As × fs)</div>
+      </div>
+      <table>
+        <tr><th>Soil Type</th><th>Safe Bearing Capacity (kN/m²)</th><th>Foundation Type</th></tr>
+        <tr><td>Hard rock</td><td>3300–6600</td><td>Any type; shallow preferred</td></tr>
+        <tr><td>Medium rock / hard soil</td><td>450–1650</td><td>Isolated/strip/raft</td></tr>
+        <tr><td>Stiff clay / dense gravel</td><td>200–450</td><td>Isolated/combined</td></tr>
+        <tr><td>Medium clay / loose sand</td><td>50–200</td><td>Raft or piles</td></tr>
+        <tr><td>Soft clay / fill</td><td>< 50</td><td>Piles mandatory</td></tr>
+        <tr><td>Black cotton soil</td><td>50–130 (highly variable)</td><td>Under-reamed piles</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b1"></span>Pre-stressing</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Pre-stressed Concrete Formulas</div>
+        <div class="fml">Stress in concrete: f = P/A ± M·y/I  (combined axial + bending)</div>
+        <div class="fml">Pre-stress force P = σ × A_ps (area of pre-stressing steel × stress)</div>
+        <div class="fml">Equivalent load (parabolic tendon): w_eq = 8Pe/L² (upward — reduces sag)</div>
+        <div class="fml">Losses in pre-stress: Elastic shortening + Creep + Shrinkage + Friction + Anchorage slip + Relaxation</div>
+        <div class="fml">Total losses typically: 15–25% of initial pre-stress</div>
+        <div class="fml">Effective pre-stress force = Initial force × (1 − loss fraction)</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Pre-stress Example</div>
+        <p><strong>Q:</strong> A 20m span PSC beam has initial pre-stress = 1400 MPa in tendon (A=1000mm²). Eccentricity e=200mm at midspan. If total losses = 20%, find the equivalent upward load from pre-stress.</p>
+        <p>Effective pre-stress = 1400 × 0.80 = 1120 MPa<br>
+        Effective force P = 1120 × 1000 = 1,120,000 N = 1120 kN<br>
+        Equivalent upward load w_eq = 8Pe/L² = 8 × 1120 × 0.200 / 20² = 1792/400 = <strong>4.48 kN/m (upward)</strong></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION B1.3 -->
+<div class="section" id="sb13">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-b1">B1.3</span>
+    <h3>Building Services and Sustainability</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b1"></span>Solar Architecture and Thermal Design</div>
+      <p><strong>Solar angles:</strong> Understanding sun path is fundamental to passive solar design. The sun's altitude (height above horizon) and azimuth (compass bearing) determine when, where, and how much solar radiation strikes a building surface.</p>
+      <div class="formula-box">
+        <div class="box-title">📐 Solar Geometry Formulas</div>
+        <div class="fml">Declination angle: δ = 23.45 × sin[360/365 × (284 + n)]   n = day of year</div>
+        <div class="fml">Hour angle: h = 15 × (solar time − 12)   (degrees)</div>
+        <div class="fml">Solar altitude: sin α = sin φ sin δ + cos φ cos δ cos h</div>
+        <div class="fml">where φ = latitude, δ = declination, h = hour angle</div>
+        <div class="fml">Solar azimuth: cos A = (sin δ − sin φ sin α) / (cos φ cos α)</div>
+        <div class="fml">Shade required: overhang projection = window height / tan(altitude angle at noon, summer)</div>
+        <div class="fml">Solar insolation on tilted surface: I_t = I_b × cos θ + I_d + I_r</div>
+        <div class="fml">Optimal tilt for solar panel: ≈ latitude of location (for annual max)</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Solar Design Example</div>
+        <p><strong>Q:</strong> At Nagpur (φ=21°N), on June 21 (δ=+23.45°), find noon solar altitude and required overhang for a 1.5m tall south window.</p>
+        <p>At solar noon (h=0): sin α = sin21° sin23.45° + cos21° cos23.45° × 1<br>
+        = 0.358 × 0.398 + 0.934 × 0.917<br>
+        = 0.142 + 0.856 = 0.998<br>
+        α = arcsin(0.998) ≈ <strong>86.5° (almost directly overhead)</strong><br>
+        Overhang = 1.5 / tan(86.5°) = 1.5 / 16.35 ≈ <strong>92mm (very small needed — sun is near overhead)</strong></p>
+        <p><strong>For winter sun (Dec 21, δ=−23.45°):</strong><br>
+        sin α = sin21°×sin(−23.45°) + cos21°×cos(−23.45°)×1 = −0.142 + 0.856 = 0.714<br>
+        α = <strong>45.5° — sun enters well below overhang — winter solar gain achieved ✓</strong></p>
+      </div>
+      <p><strong>Trombe Wall:</strong> A passive solar heating system — a south-facing dark-painted thermal mass wall (usually 200–400mm thick concrete or masonry) behind glazing. Solar radiation heats the mass, which radiates heat into the space over 8–12 hours delay. Effective in cold composite climates.</p>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b1"></span>Acoustic Design</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Acoustic Formulas</div>
+        <div class="fml">Sabine's formula: RT60 = 0.161 × V / A</div>
+        <div class="fml">Eyring's formula: RT60 = 0.161 × V / (−S × ln(1 − ᾱ))  [more accurate for highly absorptive rooms]</div>
+        <div class="fml">Total absorption: A = Σ (S_i × α_i)   [m², called sabins]</div>
+        <div class="fml">where S_i = surface area (m²), α_i = absorption coefficient (0–1)</div>
+        <div class="fml">Sound Pressure Level: L = 10 log₁₀ (I / I₀) dB   [I₀ = 10⁻¹² W/m²]</div>
+        <div class="fml">Adding equal sound sources: L_combined = L₁ + 10 log₁₀ (n) dB</div>
+        <div class="fml">Noise Reduction (NR) through partition: NR = TL − 10 log₁₀ (S/A)</div>
+        <div class="fml">where TL = Transmission Loss of partition (dB), S = partition area, A = room absorption</div>
+      </div>
+      <table>
+        <tr><th>Space Type</th><th>Optimal RT60 (seconds)</th><th>Reason</th></tr>
+        <tr><td>Recording studio</td><td>0.2–0.4</td><td>Dead — no colouration of recordings</td></tr>
+        <tr><td>Classroom</td><td>0.4–0.8</td><td>Speech clarity essential</td></tr>
+        <tr><td>Conference room</td><td>0.5–0.8</td><td>Intelligibility</td></tr>
+        <tr><td>Drama theatre</td><td>0.8–1.2</td><td>Balance speech + atmosphere</td></tr>
+        <tr><td>Opera house</td><td>1.4–1.8</td><td>Balance voice + music</td></tr>
+        <tr><td>Symphony concert hall</td><td>1.8–2.2</td><td>Lush, reverberant orchestral sound</td></tr>
+        <tr><td>Cathedral/large church</td><td>4–10</td><td>Spiritual — but poor speech clarity</td></tr>
+      </table>
+      <div class="numerical-box">
+        <div class="box-title">📊 Acoustic Calculation</div>
+        <p><strong>Q:</strong> A classroom is 10m × 8m × 3.5m (volume = 280 m³). Surfaces: floor (carpet, α=0.35, 80m²), ceiling (acoustic tile, α=0.65, 80m²), walls×4 (plaster, α=0.05, total 126m²), windows (glass, α=0.03, 14m²). Find RT60.</p>
+        <p>A = (80×0.35) + (80×0.65) + (126×0.05) + (14×0.03)<br>
+        = 28 + 52 + 6.3 + 0.42 = <strong>86.72 sabins</strong><br>
+        RT60 = 0.161 × 280 / 86.72 = 45.08/86.72 = <strong>0.52 seconds ✓ (within 0.4–0.8s for classroom)</strong></p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b1"></span>Sustainable Building — Ratings and EPI</div>
+      <table>
+        <tr><th>Rating System</th><th>Country</th><th>Max Points</th><th>Highest Rating</th><th>Focus</th></tr>
+        <tr><td>LEED (Leadership in Energy & Environmental Design)</td><td>USA/Global</td><td>110</td><td>Platinum (80+)</td><td>Energy, Water, IEQ, Materials, Innovation</td></tr>
+        <tr><td>GRIHA (Green Rating for Integrated Habitat Assessment)</td><td>India</td><td>100</td><td>5-star (91+)</td><td>Site, Water, Energy, Materials, Indoor comfort</td></tr>
+        <tr><td>BREEAM</td><td>UK/Global</td><td>—</td><td>Outstanding (>85%)</td><td>Comprehensive environmental assessment</td></tr>
+        <tr><td>BEE Star Rating</td><td>India</td><td>—</td><td>5-star</td><td>Energy Performance Index (EPI) for commercial buildings</td></tr>
+        <tr><td>IGBC (Indian Green Building Council)</td><td>India</td><td>100</td><td>Platinum</td><td>LEED-adapted for India</td></tr>
+      </table>
+      <div class="formula-box">
+        <div class="box-title">📐 Energy Performance</div>
+        <div class="fml">EPI (Energy Performance Index) = Annual energy consumption (kWh) / Conditioned floor area (m²)</div>
+        <div class="fml">BEE benchmark for office building: EPI ≤ 90 kWh/m²/year → 1 star; ≤ 70 → 3 star; ≤ 50 → 5 star</div>
+        <div class="fml">ECBC (Energy Conservation Building Code, 2017): SHGC ≤ 0.25 (composite climate), WWR ≤ 40%</div>
+        <div class="fml">Overall Thermal Transfer Value (OTTV) = limit 45 W/m² for air-conditioned buildings (ECBC)</div>
+        <div class="fml">OTTV = Aw × Uw × TDEq + Af × Uf × ΔT + Af × SHGC × SF</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== PART B2 ===== -->
+<div class="part-header part-b2-hdr">
+  <h2>PART B2 — Planning (B.Planning Candidates)</h2>
+  <p>Sections B2.1, B2.2, B2.3 — specific to urban and regional planning specialization</p>
+</div>
+
+<!-- SECTION B2.1 -->
+<div class="section" id="sb21">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-b2">B2.1</span>
+    <h3>Regional and Settlement Planning</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b2"></span>Central Place Theory (Christaller)</div>
+      <p>Walter Christaller (1933) developed Central Place Theory to explain the spatial distribution, size, and number of towns. A central place provides goods and services to its surrounding hinterland. The key concepts are: <em>range</em> (maximum distance consumers travel for a good), <em>threshold</em> (minimum population needed to sustain a service), and <em>hexagonal market areas</em> (the most efficient non-overlapping service areas).</p>
+      <div class="formula-box">
+        <div class="box-title">📐 Christaller's K-Values</div>
+        <div class="fml">K = 3 (Marketing Principle): each lower-order centre serves K-1 hinterlands</div>
+        <div class="fml">K = 4 (Transport Principle): settlements maximize road access efficiency</div>
+        <div class="fml">K = 7 (Administrative Principle): lower-order centres wholly within higher-order hinterlands</div>
+        <div class="fml">Number of settlements at each level (K=3): 1 → 2 → 6 → 18 → 54 (×3 pattern)</div>
+        <div class="fml">Gravity Model: Interaction I_ij = k × (P_i × P_j) / d_ij²</div>
+        <div class="fml">where P = population of cities i,j; d = distance; k = constant</div>
+        <div class="fml">Reilly's Law of Retail Gravitation: Break point = d_ij / (1 + √(P_j/P_i))</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Gravity Model Example</div>
+        <p><strong>Q:</strong> City A (pop=1 million) and City B (pop=250,000) are 120 km apart. Where is the retail break point (equal drawing power) from City A?</p>
+        <p>Break point from A = 120 / (1 + √(250,000/1,000,000))<br>
+        = 120 / (1 + √0.25)<br>
+        = 120 / (1 + 0.5)<br>
+        = 120 / 1.5 = <strong>80 km from City A</strong> (40 km from City B)</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b2"></span>Types and Hierarchy of Plans in India</div>
+      <table>
+        <tr><th>Plan Type</th><th>Level</th><th>Horizon</th><th>Scale</th><th>Authority</th></tr>
+        <tr><td>National Spatial Plan</td><td>National</td><td>25–50 years</td><td>1:1,000,000+</td><td>MoHUA, GoI</td></tr>
+        <tr><td>Regional Plan / State Master Plan</td><td>State/Regional</td><td>20–25 years</td><td>1:50,000–1:250,000</td><td>State DTP / Regional Development Authority</td></tr>
+        <tr><td>Metropolitan Development Plan</td><td>Metropolitan</td><td>20 years</td><td>1:25,000</td><td>Development Authority (DMRC, MMRDA, BDA)</td></tr>
+        <tr><td>Master Plan / Development Plan</td><td>City</td><td>20–25 years</td><td>1:10,000–1:25,000</td><td>Urban Development Authority</td></tr>
+        <tr><td>Zonal Plan</td><td>Zone/Ward</td><td>10–15 years</td><td>1:4,000–1:10,000</td><td>DDA / ULB</td></tr>
+        <tr><td>Layout Plan / Local Area Plan</td><td>Neighbourhood</td><td>5–10 years</td><td>1:1,000–1:4,000</td><td>ULB / Development Authority</td></tr>
+        <tr><td>Building Plan</td><td>Plot/Building</td><td>—</td><td>1:100–1:500</td><td>ULB Building Department</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b2"></span>Government Schemes and Programmes (India)</div>
+      <table>
+        <tr><th>Scheme</th><th>Launched</th><th>Ministry</th><th>Focus</th></tr>
+        <tr><td>JNNURM (Jawaharlal Nehru National Urban Renewal Mission)</td><td>2005</td><td>MoHUA</td><td>Urban infrastructure, housing, governance in 65 cities</td></tr>
+        <tr><td>Smart Cities Mission</td><td>2015</td><td>MoHUA</td><td>100 cities; area-based + pan-city smart solutions; SPV model</td></tr>
+        <tr><td>AMRUT (Atal Mission for Rejuvenation and Urban Transformation)</td><td>2015</td><td>MoHUA</td><td>Water supply, sewerage, parks in 500 cities (>1 lakh pop)</td></tr>
+        <tr><td>PMAY-U (Pradhan Mantri Awas Yojana — Urban)</td><td>2015</td><td>MoHUA</td><td>Housing for All by 2022; EWS/LIG/MIG subsidies</td></tr>
+        <tr><td>HRIDAY (National Heritage City Development and Augmentation Yojana)</td><td>2015</td><td>MoHUA</td><td>Heritage cities: Varanasi, Amritsar, Ajmer — 12 cities</td></tr>
+        <tr><td>SBM-U (Swachh Bharat Mission — Urban)</td><td>2014</td><td>MoHUA</td><td>Open defecation free (ODF), solid waste management</td></tr>
+        <tr><td>NMSH (National Mission for Sustainable Habitat)</td><td>2009</td><td>MoHUA</td><td>Energy efficiency in buildings, urban transport, solid waste</td></tr>
+        <tr><td>RURBAN Mission (SHYAMA PRASAD MUKHERJI)</td><td>2016</td><td>MORD</td><td>Clusters of rural areas with urban amenities</td></tr>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION B2.2 -->
+<div class="section" id="sb22">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-b2">B2.2</span>
+    <h3>Planning Techniques and Management</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b2"></span>GIS and Remote Sensing in Planning</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Remote Sensing Indices</div>
+        <div class="fml">NDVI (Normalized Difference Vegetation Index) = (NIR − Red) / (NIR + Red)</div>
+        <div class="fml">NDVI values: < 0 = water/clouds; 0–0.1 = barren/urban; 0.1–0.3 = shrubland; 0.3–0.6 = cropland; > 0.6 = dense forest</div>
+        <div class="fml">NDWI (Water Index) = (Green − NIR) / (Green + NIR)</div>
+        <div class="fml">NDBI (Built-up Index) = (SWIR − NIR) / (SWIR + NIR)</div>
+        <div class="fml">Image resolution: spatial (m/pixel), spectral (bands), temporal (revisit days), radiometric (bits)</div>
+        <div class="fml">Scale of map: Representative Fraction = 1 : N</div>
+        <div class="fml">Area on ground = Area on map × N²</div>
+      </div>
+      <table>
+        <tr><th>Satellite</th><th>Resolution</th><th>Use in Planning</th></tr>
+        <tr><td>Landsat 8/9 (NASA)</td><td>30m (multispectral), 15m (pan)</td><td>Land use change, vegetation, water bodies</td></tr>
+        <tr><td>Sentinel-2 (ESA)</td><td>10m (RGB+NIR), 20m (SWIR)</td><td>Crop mapping, urban expansion, NDVI</td></tr>
+        <tr><td>CARTOSAT-3 (ISRO)</td><td>0.25m</td><td>Urban planning, cadastral mapping, building footprints</td></tr>
+        <tr><td>WorldView-3</td><td>0.3m</td><td>Detailed urban mapping, building extraction</td></tr>
+        <tr><td>RESOURCESAT-2 (ISRO)</td><td>5.8m (LISS-IV)</td><td>Regional land use, agricultural surveys</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b2"></span>Urban Economics and Land Value</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Urban Economics Formulas</div>
+        <div class="fml">Bid-Rent function: r(t) = R − m·t   (land rent R decreases at rate m per unit distance t from CBD)</div>
+        <div class="fml">Gravity model of trade: T_ij = k × (P_i·P_j) / d_ij^n  (n typically 1.5–2.5)</div>
+        <div class="fml">Land Value Capture: Betterment Levy = % of land value increment from public investment</div>
+        <div class="fml">Affordability ratio = House price / Annual household income (ideally < 3 for affordable)</div>
+        <div class="fml">Urban primacy index = Pop of largest city / Pop of 2nd largest city</div>
+        <div class="fml">Four-city index = Pop of 1st city / Sum of pop of next 3 cities (index of 1 = balanced)</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Bid-Rent Example</div>
+        <p><strong>Q:</strong> Office bid-rent at CBD = ₹6000/m²/yr, declining at ₹400/km. Residential bid-rent at CBD = ₹3500/m²/yr, declining at ₹200/km. At what distance does the land use transition from office to residential?</p>
+        <p>6000 − 400t = 3500 − 200t<br>
+        6000 − 3500 = 400t − 200t<br>
+        2500 = 200t<br>
+        t = <strong>12.5 km from CBD</strong> → office use inside 12.5km, residential beyond</p>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b2"></span>Population Projection Methods</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Population Projection Formulas</div>
+        <div class="fml">1. Arithmetic (Linear): Pn = Po + n × r   [r = mean annual increment]</div>
+        <div class="fml">2. Geometric (Exponential): Pn = Po × (1 + i)^n   [i = growth rate/year]</div>
+        <div class="fml">3. Decremental Rate: r decreases with each decade (convergence to a larger city)</div>
+        <div class="fml">4. Logistic (S-curve): P = K / (1 + e^(a−bt))   [K = saturation population]</div>
+        <div class="fml">5. Component Method: P = Po + B − D + In − Out   [births, deaths, migration]</div>
+        <div class="fml">Doubling time (Rule of 70): T₂ = 70 / r%   [approximate]</div>
+        <div class="fml">Growth rate: r = (Pn/Po)^(1/n) − 1</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Population Projection Problems</div>
+        <p><strong>Q1 (Geometric):</strong> A city had population 5,00,000 in 2001 and 6,50,000 in 2011. Project population for 2031.</p>
+        <p>Growth rate: i = (6,50,000/5,00,000)^(1/10) − 1 = 1.3^0.1 − 1 = 1.0265 − 1 = <strong>2.65%/year</strong><br>
+        P_2031 = 6,50,000 × (1.0265)^20 = 6,50,000 × 1.688 = <strong>10,97,200 ≈ 11 lakh</strong></p>
+        <p><strong>Q2 (Arithmetic):</strong> Same data. Project 2031 arithmetically.<br>
+        Annual increment = (650,000 − 500,000)/10 = 15,000/year<br>
+        P_2031 = 650,000 + 20 × 15,000 = 650,000 + 300,000 = <strong>9,50,000 = 9.5 lakh</strong></p>
+        <p><strong>Q3 (Doubling time):</strong> At 3.5% growth rate, when does city population double?<br>
+        T₂ = 70/3.5 = <strong>20 years</strong></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECTION B2.3 -->
+<div class="section" id="sb23">
+  <div class="section-header" onclick="toggleSection(this)">
+    <span class="sec-num sec-num-b2">B2.3</span>
+    <h3>Infrastructure Planning — Transportation</h3>
+    <span class="toggle-icon">›</span>
+  </div>
+  <div class="section-body">
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b2"></span>Four-Step Travel Demand Model</div>
+      <p>The four-step model is the standard framework for transportation demand forecasting. It converts land use data into future traffic volumes on a road network.</p>
+      <ol>
+        <li><strong>Trip Generation:</strong> Estimates the number of trips produced by and attracted to each traffic analysis zone (TAZ). Uses regression models or trip rate tables based on land use, density, car ownership, income.
+          <ul><li>Production model: Trips = f(households, income, car ownership)</li>
+          <li>Attraction model: Trips = f(employment, floor space, retail area)</li></ul>
+        </li>
+        <li><strong>Trip Distribution:</strong> Determines where trips go — connecting production zones to attraction zones. The Gravity Model is most commonly used.</li>
+        <li><strong>Modal Split:</strong> Determines what mode of transport is used — private car, bus, metro, walking, cycling. Uses logit choice models based on travel time, cost, comfort, frequency.</li>
+        <li><strong>Traffic Assignment:</strong> Loads trips onto the road/transit network. Common methods: All-or-Nothing (AON), User Equilibrium (Wardrop's 1st principle), System Optimum (Wardrop's 2nd principle).</li>
+      </ol>
+      <div class="formula-box">
+        <div class="box-title">📐 Transportation Formulas</div>
+        <div class="fml">Gravity model: T_ij = P_i × [A_j × F_ij] / Σ(A_j × F_ij)</div>
+        <div class="fml">where F_ij = friction factor = k / t_ij^n (t=travel time, n=2 typically)</div>
+        <div class="fml">Logit modal split: P(mode k) = e^(U_k) / Σe^(U_m)</div>
+        <div class="fml">Utility function: U = a + b₁t + b₂c + ... (t=time, c=cost, b=coefficients)</div>
+        <div class="fml">Wardrop's 1st principle: In equilibrium, no traveller can reduce travel cost by switching routes</div>
+        <div class="fml">Travel demand forecasting: V_future = V_present × (Growth factor)^n</div>
+      </div>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b2"></span>Road Capacity and Level of Service</div>
+      <div class="formula-box">
+        <div class="box-title">📐 Capacity and LOS Formulas (IRC/HCM)</div>
+        <div class="fml">Capacity at signalized intersection: C = S × g/C_cycle</div>
+        <div class="fml">S = saturation flow = 1900 × PCE/hour/lane (for ideal conditions)</div>
+        <div class="fml">Degree of saturation (x) = q / c (q = flow, c = capacity)</div>
+        <div class="fml">Webster's optimum cycle length: C_o = (1.5L + 5) / (1 − Y)</div>
+        <div class="fml">where L = total lost time/cycle, Y = Σ(y_i) = sum of critical flow ratios</div>
+        <div class="fml">Green time: g_i = (C_o − L) × y_i / Y</div>
+        <div class="fml">Average delay (Webster): d = C(1−g/C)² / [2(1−xg/C)] + x² / [2q(1−x)]</div>
+        <div class="fml">PCU conversion: Car=1, 2-wheeler=0.5, Auto=0.75, Bus=3.0, Truck=3.0, Cycle=0.2</div>
+      </div>
+      <div class="numerical-box">
+        <div class="box-title">📊 Signal Timing (Webster's Method)</div>
+        <p><strong>Q:</strong> 2-phase intersection. Phase 1: volume/saturation flow y1=0.35. Phase 2: y2=0.30. Lost time = 4 sec/phase, L=8 sec/cycle. Find optimum cycle length and green times.</p>
+        <p>Y = y1+y2 = 0.35+0.30 = 0.65<br>
+        C_o = (1.5×8 + 5) / (1−0.65) = (12+5)/0.35 = 17/0.35 = <strong>48.6 sec ≈ 50 sec</strong><br>
+        Effective green = 50 − 8 = 42 sec<br>
+        g1 = 42 × 0.35/0.65 = <strong>22.6 sec ≈ 23 sec</strong><br>
+        g2 = 42 × 0.30/0.65 = <strong>19.4 sec ≈ 19 sec</strong></p>
+      </div>
+      <table>
+        <tr><th>LOS</th><th>V/C Ratio</th><th>Description</th><th>Speed (urban arterial)</th></tr>
+        <tr><td>A</td><td>≤ 0.35</td><td>Free flow, no delay</td><td>> 56 km/h</td></tr>
+        <tr><td>B</td><td>0.35–0.54</td><td>Reasonably free flow</td><td>46–56 km/h</td></tr>
+        <tr><td>C</td><td>0.55–0.77</td><td>Stable flow, some restrictions</td><td>35–45 km/h</td></tr>
+        <tr><td>D</td><td>0.78–0.93</td><td>High density flow, tolerable delays</td><td>24–34 km/h</td></tr>
+        <tr><td>E</td><td>0.94–1.00</td><td>Near capacity, unstable flow</td><td>13–23 km/h</td></tr>
+        <tr><td>F</td><td>> 1.00</td><td>Breakdown, forced flow, gridlock</td><td>< 13 km/h</td></tr>
+      </table>
+    </div>
+
+    <div class="topic">
+      <div class="topic-title"><span class="dot-b2"></span>Mass Transportation and ITS</div>
+      <table>
+        <tr><th>Mode</th><th>Capacity (PHPDT)</th><th>Capital Cost (₹/km)</th><th>Ideal for</th></tr>
+        <tr><td>Metro Rail (Heavy)</td><td>40,000–80,000</td><td>₹250–500 crore (elevated)</td><td>Cities > 2 million; corridors > 20,000 PHPDT</td></tr>
+        <tr><td>Light Rail Transit (LRT)</td><td>10,000–30,000</td><td>₹100–200 crore</td><td>Medium cities, suburban feeders</td></tr>
+        <tr><td>Bus Rapid Transit (BRT)</td><td>5,000–20,000</td><td>₹10–50 crore</td><td>Flexible, lower cost, multi-city applicability</td></tr>
+        <tr><td>Monorail</td><td>5,000–15,000</td><td>₹100–180 crore</td><td>Secondary corridors, elevated in dense areas</td></tr>
+        <tr><td>Standard Bus (BRTS)</td><td>2,000–8,000</td><td>₹5–20 crore</td><td>Secondary routes, feeder systems</td></tr>
+        <tr><td>Suburban Rail</td><td>50,000–120,000</td><td>₹50–200 crore (upgrade)</td><td>Major metropolitan areas; Mumbai, Chennai</td></tr>
+      </table>
+      <div class="numerical-box">
+        <div class="box-title">📊 Metro Capacity Calculation</div>
+        <p><strong>Q:</strong> A metro line runs 8-car trains (each car = 350 persons). Peak frequency = 3 min. What is PHPDT?</p>
+        <p>Trains per hour = 60/3 = 20 trains<br>
+        Persons per train = 8 × 350 = 2800<br>
+        PHPDT = 20 × 2800 = <strong>56,000 passengers/hour/direction</strong></p>
+        <p><strong>Q:</strong> If peak demand on a corridor is 30,000 PHPDT with 6-car trains (300 persons each), what headway is needed?</p>
+        <p>Trains per hour needed = 30,000/(6×300) = 30,000/1800 = <strong>16.7 → 17 trains/hr</strong><br>
+        Headway = 60/17 = <strong>3.5 minutes ≈ 3.5 min</strong></p>
+      </div>
+      <p><strong>Intelligent Transportation Systems (ITS):</strong></p>
+      <ul>
+        <li><strong>Adaptive Traffic Control (SCATS/SCOOT):</strong> Adjusts signal timings in real-time based on loop detector/camera feeds. Reduces delays by 15–25% vs fixed-time signals.</li>
+        <li><strong>ATMS (Advanced Traffic Management System):</strong> Central control room monitoring cameras, VMS (Variable Message Signs), ramp metering, incident detection.</li>
+        <li><strong>AVMS (Automatic Vehicle Monitoring System):</strong> GPS tracking of buses; feeds real-time info to GTFS (General Transit Feed Specification) for passenger apps.</li>
+        <li><strong>Electronic Toll Collection (ETC):</strong> FASTag (India) uses RFID transponders; reduces toll plaza delays from 5–10 min to <5 sec.</li>
+        <li><strong>Congestion Pricing:</strong> Dynamic road pricing to manage peak-hour demand. Example: London Congestion Charge (£15/day, 2022), Singapore's ERP (Electronic Road Pricing — world's first, 1998).</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end wrapper -->
+
+<script>
+function toggleSection(header) {
+  const sec = header.closest('.section');
+  sec.classList.toggle('open');
+}
+
+function doSearch(q) {
+  const topics = document.querySelectorAll('.topic');
+  const sections = document.querySelectorAll('.section');
+  const count = document.getElementById('searchCount');
+  if (!q.trim()) {
+    topics.forEach(t => t.classList.remove('hidden'));
+    sections.forEach(s => { s.classList.remove('hidden'); });
+    count.textContent = '';
+    return;
+  }
+  const ql = q.toLowerCase();
+  let found = 0;
+  // Open all sections for search
+  sections.forEach(s => { s.classList.add('open'); s.classList.remove('hidden'); });
+  topics.forEach(t => {
+    const text = t.textContent.toLowerCase();
+    if (text.includes(ql)) {
+      t.classList.remove('hidden');
+      found++;
+      // Highlight logic (simple)
+    } else {
+      t.classList.add('hidden');
+    }
+  });
+  // Hide sections with no visible topics
+  sections.forEach(s => {
+    const visible = s.querySelectorAll('.topic:not(.hidden)');
+    if (visible.length === 0) s.classList.add('hidden');
+    else s.classList.remove('hidden');
+  });
+  count.textContent = found > 0 ? `${found} topic(s) matched "${q}"` : `No results for "${q}"`;
+}
+
+// Open first section by default
+document.querySelectorAll('.section')[0].classList.add('open');
+</script>
+</body>
+</html>
